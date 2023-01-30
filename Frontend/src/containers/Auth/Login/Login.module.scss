@@ -1,0 +1,118 @@
+.login-wrapper {
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+
+}
+
+.login-container {
+    width: 350px;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+
+    .form_login {
+        padding: 16px;
+
+        .header-login-title {
+            text-align: center;
+            margin: 0;
+            font-size: 2rem;
+            padding-top: 10px;
+            font-weight: 600;
+        }
+
+        .label-input {
+            font-size: 1.2rem;
+            color: rgba(187, 187, 187, 0.9);
+        }
+
+        .hide-show-icon {
+            position: absolute;
+            top: 25%;
+            right: 0px;
+            bottom: 0;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .login-input {
+            margin: 7px 0;
+
+            &:focus {
+                box-shadow: inset 0px -3px 0px 0px rgba(34, 193, 195, 0.7);
+                outline: none;
+            }
+        }
+
+        .login-error {
+            font-size: 1.0rem;
+            color: #dc4e41;
+        }
+
+        .btn-login {
+            width: 100%;
+            margin: 10px 0;
+            height: 35px;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 500;
+            border-radius: 15px;
+            background: linear-gradient(90deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+            transition: opacity 0.25s ease-out;
+        }
+
+        .forgot-password {
+            font-size: 1rem;
+            margin: 0 2px;
+            cursor: pointer;
+
+            &:hover {
+                color: #09d33c;
+            }
+        }
+
+        .title-login-social {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-top: 18px;
+            display: block;
+        }
+
+        .social-login {
+            padding: 16px 0;
+
+            .icon-social {
+                width: 2.4rem;
+                height: 2.4rem;
+                color: #FFFFFF;
+                padding: 6px;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+
+            .icon-social+.icon-social {
+                margin-left: 22px;
+            }
+
+            .facebook-icon {
+                color: #3b5998;
+                background-color: #fff;
+                padding: 0;
+            }
+
+            .google-icon {
+                background-color: #dc4e41;
+            }
+
+            .twitter-icon {
+                background-color: #55acee;
+            }
+        }
+    }
+}
