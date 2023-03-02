@@ -1,0 +1,91 @@
+.slider-wrapper {
+    .background-slider {
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        // height: 671px;
+
+    }
+}
+
+.container-search {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.1));
+    padding: 45px 0;
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+
+    .wrapper-search {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .wrapper-title {
+
+
+        .slider-title {
+            font-size: 3.2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 1px #333;
+        }
+
+        .search-form {
+            margin: 10px auto;
+            width: 40%;
+            min-width: 300px;
+            position: relative;
+            z-index: 2;
+            min-height: 15vh;
+
+            .search-wrapper {
+                background: #f7d800;
+                color: #fff;
+                outline: none;
+                border-radius: 25px;
+                border: 1px solid transparent;
+                line-height: 50px;
+                height: 50px;
+                padding-left: 50px;
+                padding-right: 25px;
+                position: relative;
+
+                .search-icon {
+                    width: 28px;
+                    height: 28px;
+                    position: absolute;
+                    top: 25%;
+                    left: 5%;
+                    color: #333;
+                    text-align: center;
+
+                }
+
+                .input-search {
+                    background: transparent;
+                    outline: none;
+                    border: none;
+                    width: 100%;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}
+
+.download-app {
+    padding-top: 25px;
+    margin-top: 15px;
+
+    a {
+        margin-right: 12px;
+        text-decoration: none;
+    }
+}

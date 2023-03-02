@@ -1,0 +1,80 @@
+.item-wrapper {
+    a {
+        color: #333;
+        border-radius: 5px;
+        width: 100%;
+        display: inline-block;
+        text-decoration: none;
+
+        .image-item {
+            position: relative;
+            padding-top: 56.25%;
+            width: 100%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #eee;
+
+            label {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                background: #fff04b;
+                color: #00234b;
+                font-size: 0.8rem;
+                display: inline-block;
+                border-radius: 5px;
+                padding: 2px 5px;
+                font-weight: bold;
+                box-shadow: 1px 1px 0px rgb(0 0 0 / 20%);
+            }
+        }
+
+        .item-content {
+            padding: 5px 0;
+            font: 14px/1.5 'Montserrat', sans-serif;
+
+            h3 {
+                font-weight: bold;
+                font-size: 15px;
+            }
+
+            .sub-content {
+                margin: 10px 0 10px 0;
+                color: #444;
+                font-size: 13px;
+                font: 14px/1.5 'Montserrat', sans-serif;
+
+                li {
+                    list-style-type: disc;
+                    display: list-item;
+                    text-align: -webkit-match-parent;
+                }
+            }
+
+            .button-detail {
+                background: transparent;
+                border: 1px solid transparent;
+                font-weight: bold;
+                color: #467cbb;
+                text-transform: uppercase;
+                padding: 0;
+                font-size: 0.8rem;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+
+                .icon-forward {
+                    position: relative;
+                    top: -1px;
+                    display: inline-block;
+                    font-family: 'Glyphicons Halflings';
+                    font-style: normal;
+                    font-weight: normal;
+                    line-height: 1;
+                    -webkit-font-smoothing: antialiased;
+                }
+            }
+        }
+    }
+}

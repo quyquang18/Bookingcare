@@ -1,0 +1,42 @@
+.slider-wrapper {
+    width: 1170px;
+    user-select: none;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.slider {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+
+
+.buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 25%;
+    right: 14px;
+
+    .btn-slider {
+        background-size: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+        // height: 30px;
+        // width: 30px;
+        border-radius: 4px;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        outline: none;
+        transition: all 0.2s linear;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+    }
+}

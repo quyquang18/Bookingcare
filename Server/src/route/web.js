@@ -10,6 +10,7 @@ let initWebRoutes = (app) => {
     router.put('/api/edit-user', userController.handleEditUser);
     router.delete('/api/delete-user', userController.handleDeleteUser);
     router.get("/api/user/:id/verify/:token/",userController.handleVerifyEmail);
+    router.get("/api/allcode/", userController.handeGetAllCode);
     router.get("/api/valuesensor/:type/sensor/:value",userController.handleGetValueSensor);
     router.post("/api/send-email-warning",userController.handleSendEmailWarning);
     

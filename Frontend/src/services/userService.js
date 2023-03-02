@@ -17,4 +17,31 @@ const handleRegisterApi = (data) => {
 const handleGetAllUsers = (id) => {
     return axios.get(`/api/get-all-users?type=${id}`);
 };
-export { handleLoginApi, handleVerifyEmail, handleRegisterApi, handleGetAllUsers };
+const createNewUserService = (data) => {
+    return axios.post(`/api/create-new-user`, data);
+};
+const deleteUSerService = (idUser) => {
+    return axios.delete(`/api/delete-user`, { data: { id: idUser } });
+};
+const editUserService = (data) => {
+    return axios.put(`/api/edit-user`, {
+        id: data.id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phonenumber: data.phonenumber,
+        address: data.address,
+    });
+};
+const getAllCodeService = (inputType) => {
+    return axios.get(`/api/allcode/?type=${inputType}`);
+};
+export {
+    handleLoginApi,
+    handleVerifyEmail,
+    handleRegisterApi,
+    handleGetAllUsers,
+    createNewUserService,
+    deleteUSerService,
+    editUserService,
+    getAllCodeService,
+};

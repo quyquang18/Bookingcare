@@ -1,13 +1,14 @@
 export const path = {
     HOME: '/',
+    HOMEPAGE: '/home',
     LOGIN: '/login',
     LOG_OUT: '/logout',
-    SYSTEM: '/system'
+    SYSTEM: '/system',
 };
 
-export const languages = {
+export const LANGUAGES = {
     VI: 'vi',
-    EN: 'en'
+    EN: 'en',
 };
  
 export const manageActions = {

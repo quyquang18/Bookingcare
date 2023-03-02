@@ -48,56 +48,69 @@ let handleDeleteUser = async (req,res)=>{
     let message= await userServices.deleteUser(req.body.id);
     return res.status(200).json(message)
 }
-let handleEditUser = async (req,res)=>{
-    let data =req.body;
-    if(!req.body.id){
-        return res.status(500).json({
-            errCode:1,
-            message: "Missing required parameters",
-        })
-    }
-    let message= await userServices.updateUser(data);
-    return res.status(200).json(message)
-}
-let handleVerifyEmail = async(req,res)=>{
-    let id= req.params.id;
-    let token = req.params.token;
-    let message= await userServices.verifyEmail(id,token);
-    return res.status(message.status).json(message)
-}
-let handleGetValueSensor= async(req,res)=>{
-    let type= req.params.type;
-    let value = req.params.value;
-    console.log(type,value)
-    if(!type && !value){
-        return res.status(500).json({
-            errCode:1,
-            message: "Missing required parameters",
-        })
-    }
-    else {
-        let message= await userServices.getValueSensor(type,value);
-        return res.status(200).json(message)
-    }
-}
-let handleSendEmailWarning =async(req,res)=>{
-    let data = req.body;
-    if(!data){
-        return res.status(500).json({
-            errCode:1,
-            message: "Missing required parameters",
-        })
-    }
-    let message= await userServices.sendEmailWarning(data);
-    return res.status(200).json(message)
-}
-module.exports ={
-    handleLogin:handleLogin,
-    handleGetAllUsers:handleGetAllUsers,
-    handleCreateNewUser:handleCreateNewUser,
-    handleEditUser:handleEditUser,
-    handleDeleteUser:handleDeleteUser,
-    handleVerifyEmail:handleVerifyEmail,
-    handleGetValueSensor:handleGetValueSensor,
-    handleSendEmailWarning:handleSendEmailWarning,
-}
+let handleEditUser = async (req, res) => {
+  let data = req.body;
+  console.log(data.id);
+  if (!data.id) {
+    return res.status(500).json({
+      errCode: 1,
+      message: "Missing required parameters",
+    });
+  }
+  let message = await userServices.updateUser(data);
+  return res.status(200).json(message);
+};
+let handeGetAllCode = async (req, res) => {
+  try {
+    console.log(req.query.type);
+    let message = await userServices.getAllCodeService(req.query.type);
+    return res.status(200).json(message);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+};
+let handleVerifyEmail = async (req, res) => {
+  let id = req.params.id;
+  let token = req.params.token;
+  let message = await userServices.verifyEmail(id, token);
+  return res.status(message.status).json(message);
+};
+let handleGetValueSensor = async (req, res) => {
+  let type = req.params.type;
+  let value = req.params.value;
+  console.log(type, value);
+  if (!type && !value) {
+    return res.status(500).json({
+      errCode: 1,
+      message: "Missing required parameters",
+    });
+  } else {
+    let message = await userServices.getValueSensor(type, value);
+    return res.status(200).json(message);
+  }
+};
+let handleSendEmailWarning = async (req, res) => {
+  let data = req.body;
+  if (!data) {
+    return res.status(500).json({
+      errCode: 1,
+      message: "Missing required parameters",
+    });
+  }
+  let message = await userServices.sendEmailWarning(data);
+  return res.status(200).json(message);
+};
+module.exports = {
+  handleLogin: handleLogin,
+  handleGetAllUsers: handleGetAllUsers,
+  handleCreateNewUser: handleCreateNewUser,
+  handleEditUser: handleEditUser,
+  handleDeleteUser: handleDeleteUser,
+  handleVerifyEmail: handleVerifyEmail,
+  handleGetValueSensor: handleGetValueSensor,
+  handleSendEmailWarning: handleSendEmailWarning,
+  handeGetAllCode: handeGetAllCode,
+};

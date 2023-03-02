@@ -33,19 +33,38 @@
     text-align: center;
     width: 100%;
 
-    .icon-btn-1,
-    .icon-btn-2 {
+    .icon-btn-edit,
+        .icon-btn-delete {
         width: 1.6rem;
         height: 1.6rem;
         cursor: pointer;
     }
 
-    .icon-btn-1 {
+                .icon-btn-edit {
         margin-right: 14px;
         color: #28b183;
     }
 
-    .icon-btn-2 {
+                .icon-btn-delete {
         color: #c91414;
+    }
+}
+.btn-create-new-user {
+    display: flex;
+    align-items: center;
+    padding: 8px 18px;
+    font-size: 1.2rem;
+    color: #f2f2f2;
+    background-color: #0071ba;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: #084e7c;
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
     }
 }

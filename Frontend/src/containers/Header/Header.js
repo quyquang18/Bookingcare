@@ -1,25 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AiOutlineLogout } from 'react-icons/ai';
+import classNames from 'classnames/bind';
+import { FormattedMessage } from 'react-intl';
 import * as actions from '../../store/actions';
 import Navigator from '../../components/Navigator';
 import { adminMenu } from './menuApp';
-import './Header.scss';
+import { LANGUAGES } from '~/utils';
+import { changeLanguage } from '~/store/actions';
+
+import styles from './Header.module.scss';
+const cx = classNames.bind(styles);
 
 class Header extends Component {
+    handleChangeLanguage = (language) => {
+        this.props.setLanguage(language);
+    };
     render() {
-        const { processLogout } = this.props;
-
+        const { processLogout, language, userInfo } = this.props;
         return (
-            <div className="header-container">
+            <div className={cx('header-container')}>
                 {/* thanh navigator */}
-                <div className="header-tabs-container">
+                <div className={cx('header-tabs-container')}>
                     <Navigator menus={adminMenu} />
                 </div>
-
-                {/* nút logout */}
-                <div className="btn btn-logout" onClick={processLogout}>
-                    <AiOutlineLogout />
+                <div className={cx('select-language')}>
+                    <span className={cx('welcome')}>
+                        <FormattedMessage id="home-header.welcome" />
+                        {userInfo && userInfo.lastName ? userInfo.lastName : ''} !
+                    </span>
+                    <span
+                        className={cx('language-vi', language === 'vi' && 'action')}
+                        onClick={() => this.handleChangeLanguage(LANGUAGES.VI)}
+                    >
+                        VI
+                    </span>
+                    <span
+                        className={cx('language-en', language === 'en' && 'action')}
+                        onClick={() => this.handleChangeLanguage(LANGUAGES.EN)}
+                    >
+                        EN
+                    </span>
+                    {/* nút logout */}
+                    <div className={cx('btn', 'btn-logout')} onClick={processLogout}>
+                        <AiOutlineLogout />
+                    </div>
                 </div>
             </div>
         );
@@ -29,12 +54,15 @@ class Header extends Component {
 const mapStateToProps = (state) => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        language: state.app.language,
+        userInfo: state.user.userInfo,
     };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         processLogout: () => dispatch(actions.processLogout()),
+        setLanguage: (language) => dispatch(changeLanguage(language)),
     };
 };
 

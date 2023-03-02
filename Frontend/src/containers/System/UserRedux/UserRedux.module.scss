@@ -1,0 +1,36 @@
+.load-image {
+    margin-bottom: 0px !important;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0 12px;
+    width: 100px;
+    background-color: rgb(202, 202, 182);
+
+    span {
+        margin-right: 12px;
+        display: inline-block;
+    }
+
+    svg {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-top: -4px;
+    }
+}
+
+.preview-image {
+    display: block;
+    height: auto;
+    min-height: 120px;
+    width: 100%;
+    border: 2px solid red;
+    padding: 2px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: contain;
+
+}
