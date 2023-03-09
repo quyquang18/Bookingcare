@@ -104,6 +104,7 @@ let getAllUsers =(userId) =>{
 let createNewUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
+      console.log(data);
       let checkEmail = await checkUserEmail(data.email);
       if (checkEmail) {
         resolve({
@@ -118,12 +119,12 @@ let createNewUser = (data) => {
           firstName: data.firstName,
           lastName: data.lastName,
           address: data.address,
-          gender: +data.gender,
+          gender: data.gender,
           password: hashPasswordFromBcrypt,
           phonenumber: data.phonenumber,
-          roleId: "R3",
-          positionId: "R3",
-          image: "iqweqw",
+          roleId: data.role,
+          positionId: data.position,
+          image: data.avatar,
         });
 
         // let token = await db.Token.create({
@@ -183,6 +184,12 @@ let updateUser = (data) => {
         user.lastName = data.lastName;
         user.phonenumber = data.phonenumber;
         user.address = data.address;
+        user.gender = data.gender;
+        user.roleId = data.role;
+        user.positionId = data.position;
+        if (data.avatar) {
+          user.image = data.avatar;
+        }
         await user.save();
         resolve({
           errCode: 0,
@@ -265,33 +272,6 @@ let verifyEmail = (inputId, inputToken) => {
     }
   });
 };
-let getValueSensor = (type, value) => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      let values = "";
-      if (type === "day") {
-        values = await db.valueSensor.findAll({
-          where: { date: value },
-        });
-        console.log(values);
-      }
-      if (type === "month") {
-        values = await db.valueSensor.findAll({
-          where: Sequelize.where(
-            Sequelize.fn("month", Sequelize.col("date")),
-            11
-          ),
-        });
-      }
-      resolve({
-        errCode: 0,
-        value: values,
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
 
 let sendEmailWarning = async (data) => {
   await emailService.sendEmailWarning({
@@ -314,7 +294,6 @@ module.exports = {
   deleteUser: deleteUser,
   updateUser: updateUser,
   verifyEmail: verifyEmail,
-  getValueSensor: getValueSensor,
   sendEmailWarning: sendEmailWarning,
   getAllCodeService: getAllCodeService,
 };

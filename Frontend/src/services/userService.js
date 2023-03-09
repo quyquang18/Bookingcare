@@ -20,7 +20,7 @@ const handleGetAllUsers = (id) => {
 const createNewUserService = (data) => {
     return axios.post(`/api/create-new-user`, data);
 };
-const deleteUSerService = (idUser) => {
+const deleteUserService = (idUser) => {
     return axios.delete(`/api/delete-user`, { data: { id: idUser } });
 };
 const editUserService = (data) => {
@@ -30,6 +30,10 @@ const editUserService = (data) => {
         lastName: data.lastName,
         phonenumber: data.phonenumber,
         address: data.address,
+        gender: data.gender,
+        role: data.role,
+        position: data.position,
+        avatar: data.avatar,
     });
 };
 const getAllCodeService = (inputType) => {
@@ -41,7 +45,7 @@ export {
     handleRegisterApi,
     handleGetAllUsers,
     createNewUserService,
-    deleteUSerService,
+    deleteUserService,
     editUserService,
     getAllCodeService,
 };

@@ -33,9 +33,7 @@ class ProductManage extends Component {
             });
         });
     };
-    componentDidMount() {
-        console.log('didmou modal');
-    }
+    componentDidMount() {}
 
     toggle = () => {
         this.props.toggleUserModal();

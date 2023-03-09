@@ -55,9 +55,12 @@
         "gender":"Gender",
         "position":"Position",
         "role-id":"RoleID",
-        "image":"Image",
-        "save":"Save",
-        "choose":"Choose"
+        "actions":"Actions",
+        "avatar":"Avatar",
+        "save":"Save User",
+        "edit":"Save changes",
+        "choose":"Choose",
+        "upload-photos":"Upload photos"
     }
     
 }

@@ -13,20 +13,23 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    address: DataTypes.STRING,
-    gender: DataTypes.BOOLEAN,
-    phonenumber: DataTypes.STRING,
-    roleId:DataTypes.STRING,
-    image: DataTypes.STRING,
-    positionId:DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  User.init(
+    {
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      firstName: DataTypes.STRING,
+      lastName: DataTypes.STRING,
+      address: DataTypes.STRING,
+      gender: DataTypes.STRING,
+      phonenumber: DataTypes.STRING,
+      roleId: DataTypes.STRING,
+      image: DataTypes.BLOB,
+      positionId: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "User",
+    }
+  );
   return User;
 };

@@ -45,7 +45,7 @@
     },
     "manage-user":{
         "add":"Thêm mới người dùng",
-        "email":"Email",
+        "email":"E-mail",
         "password":"Mật khẩu",
         "firstname":"Họ",
         "lastname":"Tên",
@@ -54,9 +54,12 @@
         "gender":"Giới tính",
         "position":"Chức danh",
         "role-id":"RoleID",
-        "image":"Ảnh đại diện",
-        "save":"Lưu lại",
-        "choose":"Lựa chọn"
+        "actions":"Hành động",
+        "avatar":"Ảnh đại diện",
+        "save":"Lưu người dùng",
+        "edit":"Lưu thay đổi",
+        "choose":"Lựa chọn",
+        "upload-photos":"Tải ảnh lên"
     }
     
 }

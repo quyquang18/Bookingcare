@@ -5,7 +5,9 @@
     border-radius: 6px;
     cursor: pointer;
     padding: 0 12px;
-    width: 100px;
+    width: 80%;
+        text-align: center;
+        margin-top: 6px;
     background-color: rgb(202, 202, 182);
 
     span {
@@ -24,13 +26,12 @@
 .preview-image {
     display: block;
     height: auto;
-    min-height: 120px;
-    width: 100%;
+    min-height: 75px;
+        width: 80%;
     border: 2px solid red;
     padding: 2px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     object-fit: contain;
-
 }

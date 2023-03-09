@@ -6,7 +6,7 @@ import { HiPencilSquare } from 'react-icons/hi2';
 import { MdDeleteForever } from 'react-icons/md';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import styles from './UserManage.module.scss';
-import { handleGetAllUsers, createNewUserService, deleteUSerService, editUserService } from '~/services/userService';
+import { handleGetAllUsers, createNewUserService, deleteUserService, editUserService } from '~/services/userService';
 import ModalUser from '../ModalUser';
 import { emitter } from '~/utils/emitter';
 import ModalEditUser from '../ModalEditUser';
@@ -73,7 +73,7 @@ class UserManage extends Component {
     };
     handleDeleteUser = async (user) => {
         try {
-            let response = await deleteUSerService(user.id);
+            let response = await deleteUserService(user.id);
             if (response && response.errCode === 0) {
                 await this.getAllUserFromReact();
             } else {

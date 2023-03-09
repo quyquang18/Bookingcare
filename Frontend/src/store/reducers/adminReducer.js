@@ -7,6 +7,8 @@ const initialState = {
     genders: [],
     positions: [],
     roles: [],
+    arrUser: [],
+    responCreateUser: {},
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -64,7 +66,28 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
             };
-
+        //All User
+        case actionTypes.GET_ALL_USER_SUCCESS:
+            state.arrUser = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.GET_ALL_USER_FAILED:
+            state.arrUser = [];
+            return {
+                ...state,
+            };
+        //Create user
+        case actionTypes.CREAT_USER_SUCCESS:
+            state.responCreateUser = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.CREAT_USER_FAILED:
+            state.responCreateUser = action.data;
+            return {
+                ...state,
+            };
         default:
             return state;
     }
