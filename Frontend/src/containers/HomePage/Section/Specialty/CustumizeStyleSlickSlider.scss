@@ -1,3 +1,51 @@
+
+.section-wrapper{
+    border-bottom: 3px solid #efeef5;
+    width: 100%;
+    &:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    &:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+}
+.section-container {
+    max-width: 1170px;
+    padding: 20px 15px 30px 15px;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+
+    .section-header {
+        margin-bottom: 20px;
+
+        .title-section {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px 0px 5px 0px;
+            display: inline-block;
+        }
+
+        .btn-section {
+            background: #ebebeb;
+            text-transform: uppercase;
+            display: inline-block;
+            padding: 10px 15px;
+            color: #282e41;
+            float: right;
+            margin-right: 6px;
+            font-size: 12px;
+
+            &:hover {
+                cursor: pointer;
+                color: #fff;
+                background: #f7d800;
+            }
+        }
+    }
+}
 .slick-slider {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -9,21 +57,32 @@
     a {
         padding: 5px !important;
         text-decoration: none;
-
+        margin: 5px;
         h3 {
             color: #111;
             padding: 5px 0;
             font-size: 13px;
-
         }
     }
+    .out-bg {
+        padding-top: 12px;
+        border: 1px solid #eee;
+        .image-item {
+            width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
 
-    .image-item {
-        padding-top: 56.25%;
-        width: 100%;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
+            &.outstanding-doctor {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                margin: 0px auto;
+            }
+        }
     }
 
     .slick-arrow {
@@ -47,7 +106,6 @@
         z-index: 9999;
 
         &::before {
-
             color: #959595 !important;
             font-size: 46px !important;
         }
@@ -60,4 +118,19 @@
             right: 0;
         }
     }
+}
+.name-position {
+    color: #111;
+    white-space: pre-wrap;
+    font-size: 13px;
+    text-align: center;
+}
+
+.specialty-doctor {
+    color: #555;
+    font-size: 12px;
+    text-align: center;
+}
+.slick-disabled{
+    display: none !important;
 }

@@ -13,15 +13,20 @@ export const adminMenu = [
             },
             {
                 name: 'menu.admin.manage-doctor',
-                link: '/system/user-doctor',
+                link: '/system/manage-doctor',
                 // subMenus: [
                 //     { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
                 //     { name: 'menu.system.system-administrator.product-manage', link: '/system/product-manage' },
                 // ],
             },
             {
-                name: 'menu.admin.manage-admin',
-                link: '/system/user-admin',
+                name: 'menu.doctor.manage-schedule',
+                menus: [
+                    {
+                        name: 'menu.doctor.schedule',
+                        link: '/doctor/manage-schedule',
+                    },
+                ],
             },
         ],
     },
@@ -56,3 +61,15 @@ export const adminMenu = [
         ],
     },
 ];
+export const doctorMenu = [
+    {
+        name: 'menu.doctor.manage-schedule',
+        menus: [
+            {
+                name: 'menu.doctor.schedule',
+                link: '/doctor/manage-schedule',
+            },
+        ],
+    },
+];
+

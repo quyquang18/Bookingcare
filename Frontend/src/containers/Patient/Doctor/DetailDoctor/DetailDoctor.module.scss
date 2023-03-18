@@ -1,0 +1,70 @@
+.wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 1170px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.intro-doctor {
+    padding: 30px 0px 15px;
+    background: #fff;
+    .image-doctor {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-right: 15px;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .description-doctor {
+        flex: 1;
+        .name-doctor {
+            font-size: 27px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        .summary-doctor {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    }
+    .interaction-doctor {
+        display: inline-block;
+        display: flex;
+        margin-top: 10px;
+
+        svg {
+            margin-right: 4px;
+            height: 18px;
+            width: 16px;
+            display: inline-block;
+        }
+    }
+}
+.schedule-doctor {
+    .select-day {
+        color: #666;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 15px;
+        margin: 0;
+
+        select {
+            background: transparent;
+            border: none;
+            color: #337ab7;
+            border-bottom: 1px solid #999;
+            border-radius: 0;
+            font-weight: bold;
+            padding: 3px;
+        }
+    }
+    .select-time {
+        display: block;
+        -webkit-transition: display 1s;
+        transition: display 5s;
+        padding: 0px 15px 15px 15px;
+    }
+}

@@ -1,8 +1,8 @@
 import doctorSevices from "../services/doctorService";
 
 let getTopDoctorHome = async (req, res) => {
-  let limit = req.query.limit;
-  if (!limit) limit = 10;
+  let limit = req.query.limit || 10;
+
   try {
     let response = await doctorSevices.handleGetTopDoctorHome(+limit);
     return res.status(200).json(response);
@@ -14,6 +14,55 @@ let getTopDoctorHome = async (req, res) => {
     });
   }
 };
+
+let getAllDoctors = async (req, res) => {
+  try {
+    let doctors = await doctorSevices.handleGetAllDoctor();
+    return res.status(200).json(doctors);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+};
+let postInforDoctor = async (req, res) => {
+  try {
+    let response = await doctorSevices.handlePostInforDoctor(req.body);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+};
+let getDetailDoctorById = async (req, res) => {
+  try {
+    let infor = await doctorSevices.getDetailDoctorById(req.query.id);
+    return res.status(200).json(infor);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+};
+let getMarkdownDoctorById = async (req, res) => {
+  try {
+    let infor = await doctorSevices.getMarkdownDoctorById(req.query.id);
+    return res.status(200).json(infor);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+};
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
+  getAllDoctors: getAllDoctors,
+  postInforDoctor: postInforDoctor,
+  getDetailDoctorById: getDetailDoctorById,
+  getMarkdownDoctorById: getMarkdownDoctorById,
 };

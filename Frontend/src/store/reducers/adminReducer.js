@@ -9,6 +9,8 @@ const initialState = {
     roles: [],
     arrUser: [],
     responCreateUser: {},
+    arrTopDoctor: [],
+    allDoctors: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -88,6 +90,29 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
             };
+        //get top doctor
+        case actionTypes.FETCH_TOP_DOCTOR_SUCCESS:
+            state.arrTopDoctor = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_TOP_DOCTOR_FAILED:
+            state.arrTopDoctor = [];
+            return {
+                ...state,
+            };
+        //get all doctor
+        case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
+            state.allDoctors = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_ALL_DOCTOR_FAILED:
+            state.allDoctors = [];
+            return {
+                ...state,
+            };
+
         default:
             return state;
     }

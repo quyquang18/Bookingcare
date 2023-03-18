@@ -27,6 +27,10 @@
         "title8":"Sản phẩm y tế",
         "title9":"Sức khỏe doanh nghiệp"
     },
+    "homepage":{
+        "outstanding-doctor":"Bác sĩ nổi bật tuần qua",
+        "more-info":"Xem thêm"
+    },
     "menu": {
         
         "admin":{
@@ -41,6 +45,10 @@
             "manage-specialty":"Quản lí chuyên khoa",
             "handbook":"Cẩm nang",
             "manage-handbook":"Quản lí cẩm nang"
+            
+        },
+        "doctor":{
+            "manage-schedule":"Quản lý kế hoạch khám bệnh"
         }
     },
     "manage-user":{

@@ -49,21 +49,21 @@ class UserRedux extends Component {
             const arrGender = this.props.genderFromRedux;
             this.setState({
                 arrGender: arrGender,
-                gender: arrGender && arrGender.length > 0 ? arrGender[0].key : '',
+                gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : '',
             });
         }
         if (this.props.positionFromRedux !== prevProps.positionFromRedux) {
             const arrPosition = this.props.positionFromRedux;
             this.setState({
                 arrPosition: arrPosition,
-                position: arrPosition && arrPosition.length > 0 ? arrPosition[0].key : '',
+                position: arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : '',
             });
         }
         if (this.props.roleFromRedux !== prevProps.roleFromRedux) {
             const arrRole = this.props.roleFromRedux;
             this.setState({
                 arrRoleID: arrRole,
-                role: arrRole && arrRole.length > 0 ? arrRole[0].key : '',
+                role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : '',
             });
         }
     }
@@ -142,9 +142,9 @@ class UserRedux extends Component {
                     coppyState.lastName = '';
                     coppyState.phoneNumber = '';
                     coppyState.address = '';
-                    coppyState.gender = arrGender && arrGender.length > 0 ? arrGender[0].key : '';
-                    coppyState.position = arrPosition && arrPosition.length > 0 ? arrPosition[0].key : '';
-                    coppyState.role = arrRole && arrRole.length > 0 ? arrRole[0].key : '';
+                    coppyState.gender = arrGender && arrGender.length > 0 ? arrGender[0].keyMap : '';
+                    coppyState.position = arrPosition && arrPosition.length > 0 ? arrPosition[0].keyMap : '';
+                    coppyState.role = arrRole && arrRole.length > 0 ? arrRole[0].keyMap : '';
                     this.setState({
                         ...coppyState,
                     });
@@ -203,9 +203,9 @@ class UserRedux extends Component {
             lastName: user.lastName,
             phoneNumber: user.phonenumber,
             address: user.address,
-            gender: user.gender,
-            position: user.positionId,
-            role: user.roleId,
+            gender: user.gender ||'M',
+            position: user.positionId ||'P1',
+            role: user.roleId ||'R1',
             previewImageUrl: imageBase64,
             action: CRUD_ACTIONS.EDIT,
         });
@@ -214,6 +214,7 @@ class UserRedux extends Component {
         const { language } = this.props;
         const { arrGender, arrPosition, arrRoleID } = this.state;
         const { email, password, firstName, lastName, phoneNumber, address, gender, position, role } = this.state;
+        
         return (
             <div className={cx('users-redux-container')}>
                 <div className={cx('title', 'text-center')}>User Redux</div>
@@ -315,11 +316,11 @@ class UserRedux extends Component {
                                 onChange={(event) => {
                                     this.handleChangeInput(event, 'gender');
                                 }}
-                                value={this.state.gender}
+                                value={gender || 'M'}
                             >
                                 {arrGender.length > 0 &&
                                     arrGender.map((item, index) => (
-                                        <option key={index} value={item.key}>
+                                        <option key={index} value={item.keyMap}>
                                             {language === LANGUAGES.VI ? item.valueVI : item.valueEN}
                                         </option>
                                     ))}
@@ -334,11 +335,11 @@ class UserRedux extends Component {
                                 onChange={(event) => {
                                     this.handleChangeInput(event, 'position');
                                 }}
-                                value={this.state.position}
+                                value={position || 'P1'}
                             >
                                 {arrPosition.length > 0 &&
                                     arrPosition.map((item, index) => (
-                                        <option key={index} value={item.key}>
+                                        <option key={index} value={item.keyMap}>
                                             {language === LANGUAGES.VI ? item.valueVI : item.valueEN}
                                         </option>
                                     ))}
@@ -353,11 +354,11 @@ class UserRedux extends Component {
                                 onChange={(event) => {
                                     this.handleChangeInput(event, 'role');
                                 }}
-                                value={this.state.role}
+                                value={role || 'R1'}
                             >
                                 {arrRoleID.length > 0 &&
                                     arrRoleID.map((item, index) => (
-                                        <option key={index} value={item.key}>
+                                        <option key={index} value={item.keyMap}>
                                             {language === LANGUAGES.VI ? item.valueVI : item.valueEN}
                                         </option>
                                     ))}

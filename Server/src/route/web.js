@@ -11,12 +11,19 @@ let initWebRoutes = (app) => {
   router.delete("/api/delete-user", userController.handleDeleteUser);
   router.get("/api/user/:id/verify/:token/", userController.handleVerifyEmail);
   router.get("/api/allcode/", userController.handeGetAllCode);
-  router.get(
-    "/api/valuesensor/:type/sensor/:value",
-    userController.handleGetValueSensor
-  );
   router.post("/api/send-email-warning", userController.handleSendEmailWarning);
+
   router.get("/api/top-doctor-home", doctorController.getTopDoctorHome);
+  router.get("/api/get-all-doctors", doctorController.getAllDoctors);
+  router.post("/api/post-infor-doctor", doctorController.postInforDoctor);
+  router.get(
+    "/api/get-detail-doctor-by-id",
+    doctorController.getDetailDoctorById
+  );
+  router.get(
+    "/api/get-markdown-doctor-by-id",
+    doctorController.getMarkdownDoctorById
+  );
 
   return app.use("/", router);
 };

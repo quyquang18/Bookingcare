@@ -5,6 +5,9 @@ import {
     handleGetAllUsers,
     deleteUserService,
     editUserService,
+    getTopDoctorHomeService,
+    getAllDoctor,
+    updateInforDoctor,
 } from '~/services/userService';
 import { toast } from 'react-toastify';
 //Gender
@@ -189,3 +192,61 @@ export const getAllUserSuccess = (users) => ({
 export const getAllUserFailed = () => ({
     type: actionTypes.GET_ALL_USER_FAILED,
 });
+
+export const fetchTopDoctor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getTopDoctorHomeService('10 ');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
+                    data: res.data,
+                });
+            }
+        } catch (error) {
+            console.log('FETCH_TOP_DOCTOR_FAILED: ', error);
+            dispatch({
+                type: actionTypes.FETCH_TOP_DOCTOR_FAILED,
+            });
+        }
+    };
+};
+
+export const fetchAllDoctor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllDoctor();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
+                    data: res.data,
+                });
+            }
+        } catch (error) {
+            console.log('FETCH_TOP_DOCTOR_FAILED: ', error);
+            dispatch({
+                type: actionTypes.FETCH_ALL_DOCTOR_FAILED,
+            });
+        }
+    };
+};
+
+export const saveDetailDoctor = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await updateInforDoctor(data);
+            if (res && res.errCode === 0) {
+                toast.success('Save Detail Infor Doctor Succeed!');
+                dispatch({
+                    type: actionTypes.UPDATE_INFOR_DOCTOR_SUCCESS,
+                });
+            }
+        } catch (error) {
+            console.log('FETCH_TOP_DOCTOR_FAILED: ', error);
+            toast.error('Save Detail Infor Doctor Failed!');
+            dispatch({
+                type: actionTypes.UPDATE_INFOR_DOCTOR_FAILED,
+            });
+        }
+    };
+};

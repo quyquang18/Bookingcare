@@ -12,7 +12,7 @@
         "welcome":"Welcome , "
     },
     "home-slider":{
-        "title":"MEDICAL BACKGROUND",
+        "title":"MEDICAL PLATFORM",
         "sub-title":"COMPREHENSIVE HEALTH CARE",
         "placehoder-search":"Find a specialty"
     },
@@ -28,6 +28,10 @@
         "title9":"Corporate health"
         
     },
+    "homepage":{
+        "outstanding-doctor":"Last week's featured doctor",
+        "more-info":"More"
+    },
     "menu": {
         
         "admin":{
@@ -42,6 +46,9 @@
             "manage-specialty":"Specialty manage",
             "handbook":"Handbook",
             "manage-handbook":"Handbook manage"
+        },
+        "doctor":{
+            "manage-schedule":"Manage doctor's schedule"
         }
     },
     "manage-user":{

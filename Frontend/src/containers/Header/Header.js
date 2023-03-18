@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../../store/actions';
 import Navigator from '../../components/Navigator';
-import { adminMenu } from './menuApp';
+import { adminMenu, doctorMenu } from './menuApp';
 import { LANGUAGES } from '~/utils';
 import { changeLanguage } from '~/store/actions';
 
@@ -16,6 +16,7 @@ class Header extends Component {
     handleChangeLanguage = (language) => {
         this.props.setLanguage(language);
     };
+    componentDidMount() {}
     render() {
         const { processLogout, language, userInfo } = this.props;
         return (

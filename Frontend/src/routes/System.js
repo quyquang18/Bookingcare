@@ -5,7 +5,7 @@ import UserManage from '~/containers/System/UserManage/';
 import UserRedux from '~/containers/System/UserRedux/';
 import ProductManage from '~/containers/System/ProductManage/';
 import RegisterPackageGroupOrAcc from '~/containers/System/RegisterPackageGroupOrAcc/';
-
+import ManageDoctor from '~/containers/System/ManageDoctor';
 class System extends Component {
     render() {
         const { systemMenuPath } = this.props;
@@ -15,6 +15,7 @@ class System extends Component {
                     <Switch>
                         <Route path="/system/user-manage" component={UserManage} />
                         <Route path="/system/user-redux" component={UserRedux} />
+                        <Route path="/system/manage-doctor" component={ManageDoctor} />
                         <Route path="/system/product-manage" component={ProductManage} />
                         <Route path="/system/register-package-group-or-account" component={RegisterPackageGroupOrAcc} />
                         <Route

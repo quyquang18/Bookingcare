@@ -7,11 +7,20 @@ import { MdDeleteForever } from 'react-icons/md';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+import 'react-markdown-editor-lite/lib/index.css';
 
 import styles from './TableUserManager.module.scss';
 import * as actions from '~/store/actions';
 const cx = classNames.bind(styles);
+// Initialize a markdown parser
+const mdParser = new MarkdownIt(/* Markdown-it options */);
 
+// Finish!
+function handleEditorChange({ html, text }) {
+    console.log('handleEditorChange', html, text);
+}
 class TableUserManager extends Component {
     constructor(props) {
         super(props);
@@ -104,6 +113,11 @@ class TableUserManager extends Component {
                         </tbody>
                     </table>
                 </div>
+                <MdEditor
+                    style={{ height: '500px' }}
+                    renderHTML={(text) => mdParser.render(text)}
+                    onChange={handleEditorChange}
+                />
             </div>
         );
     }
