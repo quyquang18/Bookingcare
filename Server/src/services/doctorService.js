@@ -1,4 +1,9 @@
+import _ from "lodash";
+
 import db from "../models/index";
+
+require("dotenv").config();
+const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
 let handleGetTopDoctorHome = (limitInput) => {
   return new Promise(async (resolve, reject) => {
@@ -192,11 +197,56 @@ let getMarkdownDoctorById = (inputId) => {
     }
   });
 };
+let bulkCreateSchedule = (inputData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (
+        inputData &&
+        inputData.arrSchedule &&
+        inputData.doctorId &&
+        inputData.formatedDate
+      ) {
+        let schedules = inputData.arrSchedule;
 
+        if (schedules && schedules.length > 0) {
+          schedules.map((item) => (item.maxNumber = +MAX_NUMBER_SCHEDULE));
+        }
+        let existing = await db.Schedule.findAll({
+          where: {
+            doctorId: inputData.doctorId,
+            date: inputData.formatedDate,
+          },
+          attributes: ["maxNumber", "date", "doctorId", "timeType"],
+          raw: true,
+        });
+        if (existing && existing.length > 0) {
+          existing = existing.map((item) => {
+            item.date = new Date(item.date).getTime();
+            return item;
+          });
+        }
+        let toCreate = _.differenceWith(schedules, existing, (a, b) => {
+          return a.timeType === b.timeType && a.date === b.date;
+        });
+        if (toCreate && toCreate.length > 0) {
+          await db.Schedule.bulkCreate(toCreate);
+        }
+      } else {
+        resolve({
+          errCode: 1,
+          data: "Missing required parameter",
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 module.exports = {
   handleGetTopDoctorHome: handleGetTopDoctorHome,
   handleGetAllDoctor: handleGetAllDoctor,
   handlePostInforDoctor: handlePostInforDoctor,
   getDetailDoctorById: getDetailDoctorById,
   getMarkdownDoctorById: getMarkdownDoctorById,
+  bulkCreateSchedule: bulkCreateSchedule,
 };

@@ -42,7 +42,6 @@ class OutStandingDoctor extends Component {
             swipe: true,
         };
         let { arrDoctor } = this.state;
-        console.log(arrDoctor);
 
         return (
             <div className="section-wrapper">

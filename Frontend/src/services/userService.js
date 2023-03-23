@@ -39,21 +39,7 @@ const editUserService = (data) => {
 const getAllCodeService = (inputType) => {
     return axios.get(`/api/allcode/?type=${inputType}`);
 };
-const getTopDoctorHomeService = (limitInput) => {
-    return axios.get(`/api/top-doctor-home/?limit=${limitInput}`);
-};
-const getAllDoctor = () => {
-    return axios.get(`/api/get-all-doctors`);
-};
-const updateInforDoctor = (data) => {
-    return axios.post(`/api/post-infor-doctor`, data);
-};
-const getDetailDoctorById = (inputId) => {
-    return axios.get(`/api/get-detail-doctor-by-id?id=${inputId}`);
-};
-const getMarkdownDoctorById = (inputId) => {
-    return axios.get(`/api/get-markdown-doctor-by-id?id=${inputId}`);
-};
+
 export {
     handleLoginApi,
     handleVerifyEmail,
@@ -63,9 +49,4 @@ export {
     deleteUserService,
     editUserService,
     getAllCodeService,
-    getTopDoctorHomeService,
-    getAllDoctor,
-    updateInforDoctor,
-    getDetailDoctorById,
-    getMarkdownDoctorById,
 };

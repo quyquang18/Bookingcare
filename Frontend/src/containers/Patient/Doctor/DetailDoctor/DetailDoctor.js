@@ -4,8 +4,10 @@ import classNames from 'classnames/bind';
 import { AiFillLike, AiFillCalendar } from 'react-icons/ai';
 import styles from './DetailDoctor.module.scss';
 import * as actions from '~/store/actions';
-import { getDetailDoctorById } from '~/services/userService';
+import { getDetailDoctorById } from '~/services/doctorService';
 import { LANGUAGES } from '~/utils';
+import DoctorSchedule from '../../DoctorSchedule';
+
 const cx = classNames.bind(styles);
 class DetailDoctor extends Component {
     constructor(props) {
@@ -67,22 +69,13 @@ class DetailDoctor extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={cx('schedule-doctor')}>
-                    <div className={cx('wrapper')}>
-                        <div className={cx('select-day')}>
-                            <select>
-                                <option>Hôm nay - 17/3</option>
-                                <option>Thứ 7 - 18/3</option>
-                                <option>Chủ nhật - 19/3 </option>
-                                <option>Thứ 2 - 20/3 </option>
-                            </select>
+                <div className={cx('wrapper')}>
+                    <div className={cx('schedule-doctor')}>
+                        <div className={cx('content-left')}>
+                            <DoctorSchedule />
                         </div>
-                        <div className={cx('select-time')}>
-                            <div className={cx('select-title')}>
-                                <AiFillCalendar />
-                                Lịch khám
-                            </div>
-                            <div className="option-time"></div>
+                        <div className={cx('content-right')}>
+                            <DoctorSchedule />
                         </div>
                     </div>
                 </div>

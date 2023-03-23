@@ -24,7 +24,7 @@ let initWebRoutes = (app) => {
     "/api/get-markdown-doctor-by-id",
     doctorController.getMarkdownDoctorById
   );
-
+  router.post("/api/bulk-create-schedule", doctorController.bulkCreateSchedule);
   return app.use("/", router);
 };
 

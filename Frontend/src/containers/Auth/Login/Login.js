@@ -93,6 +93,11 @@ class Login extends Component {
             isShowPassword: !this.state.isShowPassword,
         });
     };
+    handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            this.handleLogin();
+        }
+    };
     render() {
         const { username, password, errMessage } = this.state;
         const { lang } = this.props;
@@ -120,6 +125,9 @@ class Login extends Component {
                                     placeholder="Enter your password"
                                     value={password}
                                     onChange={(event) => this.onPasswordChange(event)}
+                                    onKeyDown={(event) => {
+                                        this.handleKeyDown(event);
+                                    }}
                                 ></input>
                                 <span className={cx('hide-show-icon')} onClick={this.handleShowHidePassword}>
                                     {this.state.isShowPassword ? <BsEyeFill /> : <BsEyeSlashFill />}

@@ -11,7 +11,7 @@ import Select from 'react-select';
 import styles from './ManageDoctor.module.scss';
 import * as actions from '~/store/actions';
 import { LANGUAGES, CRUD_ACTIONS } from '~/utils';
-import { getMarkdownDoctorById } from '~/services/userService';
+import { getMarkdownDoctorById } from '~/services/doctorService';
 
 const cx = classNames.bind(styles);
 // Initialize a markdown parser
