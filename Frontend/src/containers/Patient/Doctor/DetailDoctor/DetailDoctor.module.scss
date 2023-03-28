@@ -45,13 +45,25 @@
 }
 .schedule-doctor {
     display: flex;
-    height: 200px;
-    border: 1px solid rgb(207, 117, 117);
-    margin: 12px 0;
+    border-bottom: 1px solid #ccc;
+    padding: 12px 0;
     .content-left {
         width: 55%;
     }
     .content-right {
         width: 45%;
+        border-left: 1px solid #eee;
+        float: left;
+        padding-left: 20px;
+        border-top: none;
+        margin-top: 0px;
+    }
+}
+.detail-infor-doctor{
+    ul{
+        padding-left: 40px;
+        li{
+            line-height: 1.7;
+        }
     }
 }

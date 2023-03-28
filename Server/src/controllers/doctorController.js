@@ -70,6 +70,33 @@ let bulkCreateSchedule = async (req, res) => {
     });
   }
 };
+let getScheduleByDate = async (req, res) => {
+  try {
+    let response = await doctorSevices.getScheduleByDate(
+      req.query.doctorId,
+      req.query.date
+    );
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+};
+let getExtraInforDoctorById = async (req, res) => {
+  try {
+    let response = await doctorSevices.getExtraInforDoctorById(
+      req.query.doctorId
+    );
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+};
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
   getAllDoctors: getAllDoctors,
@@ -77,4 +104,6 @@ module.exports = {
   getDetailDoctorById: getDetailDoctorById,
   getMarkdownDoctorById: getMarkdownDoctorById,
   bulkCreateSchedule: bulkCreateSchedule,
+  getScheduleByDate: getScheduleByDate,
+  getExtraInforDoctorById: getExtraInforDoctorById,
 };

@@ -1,0 +1,101 @@
+.select-day {
+    color: #666;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 15px;
+    margin: 0;
+
+    select {
+        background: transparent;
+        border: none;
+        color: #337ab7;
+        border-bottom: 1px solid #999;
+        border-radius: 0;
+        font-weight: bold;
+        padding: 3px;
+        text-transform: capitalize;
+        outline: none;
+        option {
+            font-weight: 500;
+        }
+    }
+}
+.all-available-time {
+    display: block;
+    -webkit-transition: display 1s;
+    transition: display 5s;
+    padding: 0px 15px 15px 15px;
+    .text-calendar {
+        text-transform: uppercase;
+        font-size: 14px;
+        color: #333;
+        font-weight: bold;
+        padding: 0;
+        margin: 0 0 5px 0;
+        display: flex;
+        align-items: center;
+        padding: 2px 0;
+        .icon-calendar {
+            position: relative;
+            font-size: 16px;
+            top: -2px;
+            margin-right: 4px;
+        }
+        p {
+            margin: 0;
+        }
+    }
+    .time-content {
+        display: block;
+        overflow-x: visible;
+        white-space: normal;
+        padding-bottom: 10px;
+        width: 100%;
+        .option-time {
+            background: #eee;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding: 10px 15px;
+            line-height: 1.3333;
+            display: inline-block;
+            vertical-align: middle;
+            white-space: nowrap;
+            text-align: center;
+            color: #333;
+            font-weight: bolder;
+            position: relative;
+            &:hover {
+                text-decoration: none;
+                cursor: pointer;
+                box-shadow: 0px 0px 0px 2px #33b0e3 inset;
+            }
+            &.vi {
+                min-width: 23%;
+                margin-right: 11px;
+            }
+            &.en {
+                min-width: 30%;
+                margin-right: 18px;
+            }
+            &.in-week {
+                background: #fff04b;
+            }
+        }
+        .text-notify-no-schedule {
+            color: #f16e30;
+            font-size: 16px;
+            text-align: center;
+            margin: 12px;
+            font-style: italic;
+        }
+    }
+    .book-free {
+        font-size: 14px;
+        color: #333;
+        .icon-choose {
+            margin: 0 2px;
+            position: relative;
+            top: -3px;
+        }
+    }
+}

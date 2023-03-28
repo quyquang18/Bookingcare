@@ -25,6 +25,12 @@ let initWebRoutes = (app) => {
     doctorController.getMarkdownDoctorById
   );
   router.post("/api/bulk-create-schedule", doctorController.bulkCreateSchedule);
+  router.get("/api/get-schedule-by-date", doctorController.getScheduleByDate);
+  router.get(
+    "/api/get-extra-infor-doctor-by-id",
+    doctorController.getExtraInforDoctorById
+  );
+
   return app.use("/", router);
 };
 

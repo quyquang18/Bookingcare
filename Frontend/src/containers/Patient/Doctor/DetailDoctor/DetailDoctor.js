@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import { AiFillLike, AiFillCalendar } from 'react-icons/ai';
+import { FormattedMessage } from 'react-intl';
+
 import styles from './DetailDoctor.module.scss';
 import * as actions from '~/store/actions';
 import { getDetailDoctorById } from '~/services/doctorService';
 import { LANGUAGES } from '~/utils';
-import DoctorSchedule from '../../DoctorSchedule';
+import DoctorSchedule from './DoctorSchedule';
+import DoctorExtraInfor from './DoctorExtraInfor';
 
 const cx = classNames.bind(styles);
 class DetailDoctor extends Component {
@@ -14,10 +17,14 @@ class DetailDoctor extends Component {
         super(props);
         this.state = {
             inforDoctor: {},
+            currentDoctorId: -1,
         };
     }
     async componentDidMount() {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
+            this.setState({
+                currentDoctorId: this.props.match.params.id,
+            });
             let res = await getDetailDoctorById(this.props.match.params.id);
             if (res && res.errCode === 0) {
                 this.setState({
@@ -31,7 +38,6 @@ class DetailDoctor extends Component {
 
     render() {
         let { inforDoctor } = this.state;
-        console.log(inforDoctor);
         let language = this.props.language;
         let nameVi = '';
         let nameEn = '';
@@ -44,10 +50,7 @@ class DetailDoctor extends Component {
                 <div className={cx('intro-doctor')}>
                     <div className={cx('wrapper')}>
                         <div className="d-flex">
-                            <div
-                                className={cx('image-doctor')}
-                                style={{ backgroundImage: `url(${inforDoctor.image})` }}
-                            ></div>
+                            <div className={cx('image-doctor')} style={{ backgroundImage: `url(${inforDoctor.image})` }}></div>
                             <div className={cx('description-doctor')}>
                                 <h1 className={cx('name-doctor')}>{language === LANGUAGES.VI ? nameVi : nameEn}</h1>
                                 <div className={cx('summary-doctor')}>
@@ -56,14 +59,13 @@ class DetailDoctor extends Component {
                                     )}
                                 </div>
                                 <div className={cx('interaction-doctor')}>
-                                    <button
-                                        className="btn btn-primary d-flex"
-                                        title="Thích Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng"
-                                    >
+                                    <button className="btn btn-primary d-flex" title="Thích Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng">
                                         <AiFillLike />
-                                        Thích 43
+                                        <FormattedMessage id="patient.detail-doctor.like" /> 43
                                     </button>
-                                    <button className="btn btn-primary ml-3">Chia sẻ</button>
+                                    <button className="btn btn-primary ml-3">
+                                        <FormattedMessage id="patient.detail-doctor.share" />
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -72,18 +74,20 @@ class DetailDoctor extends Component {
                 <div className={cx('wrapper')}>
                     <div className={cx('schedule-doctor')}>
                         <div className={cx('content-left')}>
-                            <DoctorSchedule />
+                            <DoctorSchedule doctorId={this.state.currentDoctorId} />
                         </div>
                         <div className={cx('content-right')}>
-                            <DoctorSchedule />
+                            <DoctorExtraInfor doctorId={this.state.currentDoctorId} />
                         </div>
                     </div>
                 </div>
-                <div className={cx('detail-infor-doctor')}>
-                    <div className={cx('wrapper')}>
-                        {inforDoctor && inforDoctor.Markdown && inforDoctor.Markdown.contentHTML && (
-                            <div dangerouslySetInnerHTML={{ __html: inforDoctor.Markdown.contentHTML }}></div>
-                        )}
+                <div className={cx('wrapper')}>
+                    <div className={cx('detail-infor-doctor')}>
+                        <div className={cx('content')}>
+                            {inforDoctor && inforDoctor.Markdown && inforDoctor.Markdown.contentHTML && (
+                                <div dangerouslySetInnerHTML={{ __html: inforDoctor.Markdown.contentHTML }}></div>
+                            )}
+                        </div>
                     </div>
                 </div>
                 <div className={cx('feedback-doctor')}></div>

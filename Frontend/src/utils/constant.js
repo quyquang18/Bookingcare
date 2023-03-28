@@ -32,3 +32,13 @@ export const USER_ROLE = {
     DOCTOR: 'R2',
     PATIENT: 'R3',
 };
+export const INFOR_DOCTOR = {
+    GENDER: 'GENDER',
+    POSITION: 'POSITION',
+    ROLE: 'ROLE',
+    PRICE: 'PRICE',
+    PAYMANET: 'PAYMENT',
+    PROVINCE: 'PROVINCE',
+    TIME: 'TIME',
+    NAME: 'NAME',
+};

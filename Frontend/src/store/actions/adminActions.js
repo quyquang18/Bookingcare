@@ -8,11 +8,12 @@ import {
 } from '~/services/userService';
 import { getAllDoctor, updateInforDoctor, getTopDoctorHomeService } from '~/services/doctorService';
 import { toast } from 'react-toastify';
+import { INFOR_DOCTOR } from '~/utils';
 //Gender
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
         try {
-            let resGender = await getAllCodeService('gender');
+            let resGender = await getAllCodeService(INFOR_DOCTOR.GENDER);
             dispatch({ type: actionTypes.FETCH_GENDER_START });
             if (resGender && resGender.errCode === 0) {
                 dispatch(fetchGenderSuccess(resGender.data));
@@ -35,7 +36,7 @@ export const fetchGenderFailed = () => ({
 export const fetchPositionStart = () => {
     return async (dispatch, getState) => {
         try {
-            let resPosition = await getAllCodeService('Position');
+            let resPosition = await getAllCodeService(INFOR_DOCTOR.POSITION);
             dispatch({ type: actionTypes.FETCH_POSITION_START });
             if (resPosition && resPosition.errCode === 0) {
                 dispatch(fetchPositionSuccess(resPosition.data));
@@ -57,7 +58,7 @@ export const fetchPositionFailed = () => ({
 export const fetchRoleStart = () => {
     return async (dispatch, getState) => {
         try {
-            let resRole = await getAllCodeService('Role');
+            let resRole = await getAllCodeService(INFOR_DOCTOR.ROLE);
             dispatch({ type: actionTypes.FETCH_ROLE_START });
             if (resRole && resRole.errCode === 0) {
                 dispatch(fetchRoleSuccess(resRole.data));
@@ -252,7 +253,7 @@ export const saveDetailDoctor = (data) => {
 export const fetchAllScheduleTimes = () => {
     return async (dispatch, getState) => {
         try {
-            let res = await getAllCodeService('TIME');
+            let res = await getAllCodeService(INFOR_DOCTOR.TIME);
             if (res && res.errCode === 0) {
                 dispatch({
                     type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS,
@@ -260,10 +261,38 @@ export const fetchAllScheduleTimes = () => {
                 });
             }
         } catch (error) {
-            console.log('FETCH_TOP_DOCTOR_FAILED: ', error);
             dispatch({
                 type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED,
             });
+        }
+    };
+};
+export const fetchRequiredDoctorInfor = () => {
+    return async (dispatch, getState) => {
+        try {
+            let resPrice = await getAllCodeService(INFOR_DOCTOR.PRICE);
+            let resPayMent = await getAllCodeService(INFOR_DOCTOR.PAYMANET);
+            let resProvince = await getAllCodeService(INFOR_DOCTOR.PROVINCE);
+            if (
+                resPrice &&
+                resPrice.errCode === 0 &&
+                resPayMent &&
+                resPayMent.errCode === 0 &&
+                resProvince &&
+                resProvince.errCode === 0
+            ) {
+                dispatch({
+                    type: actionTypes.FETCH_REQUIRED_INFOR_DOCTOR_SUCCESS,
+                    dataPrice: resPrice.data,
+                    dataPayment: resPayMent.data,
+                    dataProvince: resProvince.data,
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.FETCH_REQUIRED_INFOR_DOCTOR_FAILED,
+            });
+            console.log(error);
         }
     };
 };
