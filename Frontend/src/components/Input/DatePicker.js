@@ -136,7 +136,7 @@ class DatePicker extends Component {
     DISPLAY_FORMAT = 'd/m/Y';
 
     render() {
-        const { value, defaulevalue, onChange, minDate, onClose, ...otherProps } = this.props;
+        const { value, defaulevalue, onChange, minDate, onClose, maxDate, ...otherProps } = this.props;
         const options = {
             dateFormat: this.DISPLAY_FORMAT,
             allowInput: true,
@@ -144,6 +144,7 @@ class DatePicker extends Component {
             onClose: onClose,
             onOpen: this.onOpen,
             defaultDate: defaulevalue,
+            maxDate: maxDate,
         };
         if (minDate) {
             options.minDate = minDate;

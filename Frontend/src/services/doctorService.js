@@ -21,6 +21,12 @@ const saveBulkScheduleDoctor = (data) => {
 const getScheduleByDate = (doctorId, date) => {
     return axios.get(`/api/get-schedule-by-date?doctorId=${doctorId}&date=${date}`);
 };
+const getProfileDoctorById = (doctorId, date) => {
+    return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
+};
+const getProvinceVN = (depth) => {
+    return axios.get(`https://provinces.open-api.vn/api/?depth=${depth}`);
+};
 export {
     getTopDoctorHomeService,
     getAllDoctor,
@@ -29,4 +35,6 @@ export {
     getMarkdownDoctorById,
     saveBulkScheduleDoctor,
     getScheduleByDate,
+    getProfileDoctorById,
+    getProvinceVN,
 };

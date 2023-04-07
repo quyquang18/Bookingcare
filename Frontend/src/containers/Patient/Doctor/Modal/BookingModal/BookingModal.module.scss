@@ -1,0 +1,112 @@
+
+.modal-booking-container {
+    .modal-booking-content {
+        // height: 500px;
+        display: flex;
+        flex-direction: column;
+        .modal-booking-header {
+            border-bottom: 2px solid #eee;
+            padding: 15px;
+            background: #ffe2e2;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            .header-booking-title{
+                font-size: 18px;
+                text-transform: uppercase;
+            }
+            .btn-booking-close{
+                cursor: pointer;
+                font-size: 18px;
+            }
+        }
+        .modal-booking-body {
+            height: 100%;
+            .form-input-patient{
+                padding: 4px 30px;
+            }
+        }
+        .modal-booking-footer {
+            padding: 12px;
+            display: flex;
+            justify-content: space-around;
+            .btn-booking{
+                padding: 8px 0;
+                border: 1px solid transparent;
+                font-weight: 700;
+                font-size: 16px;
+                color: #fff;
+                border-radius: 5px;
+            }
+            .btn-booking-confirm {
+                background:#ffc419;
+                width: 40%;
+            }
+            .btn-booking-cancle {
+                background:#b3341e;
+                width: 40%;
+            }
+        }
+    }
+}
+.wrapper-radios{
+    display: flex;
+    margin: 4px 0 8px;
+    &.gender{
+        justify-content: center;
+    }
+    .form-check{
+        padding: 4px 0;
+        display: flex;
+        justify-content:flex-start;
+        align-items: center;
+        input{
+            width: 15px;
+            height: 15px;
+            &.small{
+                width: 13px !important;
+                height: 13px !important;
+            }
+        }
+        label{
+            margin: 0;
+            margin-left: 4px;
+        }
+    }
+}
+.expense{
+    display: flex;
+    flex-direction: column;
+    background: #f6f6f6;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 0px auto;
+    .expense-content{
+        display: flex;
+        justify-content: space-between;
+        margin: 5px 0px;
+    }
+    hr{
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 10px 0;
+    }
+}
+.note{
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+    padding-top: 5px;
+    text-align: center;
+}
+.warning{
+    background: #D4EFFC;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    ul{
+        padding: 0px 20px;
+        line-height: 1.6;
+    }
+}

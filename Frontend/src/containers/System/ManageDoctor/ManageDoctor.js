@@ -242,7 +242,7 @@ class ManageDoctor extends Component {
         let { listDoctor, listPrice, listPayment, listProvince, actions, contentMarkdown, description } = this.state;
         let { selectedDoctor, selectedPrice, selectedPayment, selectedProvince } = this.state;
         let { note, nameClinic, addressClinic } = this.state;
-        // console.log(selectedPayment, selectedProvince);
+        console.log(selectedPayment, selectedProvince);
         return (
             <div className={cx('manage-doctor-wrapper')}>
                 <div className={cx('manage-doctor-title')}>

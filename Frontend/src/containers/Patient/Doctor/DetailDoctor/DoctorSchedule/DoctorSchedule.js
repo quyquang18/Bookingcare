@@ -11,6 +11,7 @@ import styles from './DoctorSchedule.module.scss';
 import * as actions from '~/store/actions';
 import { LANGUAGES } from '~/utils';
 import { getScheduleByDate } from '~/services/doctorService';
+import BookingModal from '../../Modal/BookingModal';
 const cx = classNames.bind(styles);
 
 class DoctorSchedule extends Component {
@@ -20,6 +21,8 @@ class DoctorSchedule extends Component {
             allDays: [],
             allAvailableTime: [],
             isDateOfThisWeek: true,
+            isOpenModalBooking: false,
+            dataScheduleTimeModal: [],
         };
     }
     async componentDidMount() {
@@ -101,7 +104,6 @@ class DoctorSchedule extends Component {
         let isDateOfThisWeek = 0;
         let weekStart = moment().clone().startOf('week').valueOf();
         let weekEnd = moment().clone().endOf('week').valueOf();
-        console.log(weekStart, '-----', inputDate, '----', weekEnd);
         if (weekStart <= inputDate && inputDate <= weekEnd) {
             isDateOfThisWeek = true;
         } else {
@@ -110,61 +112,83 @@ class DoctorSchedule extends Component {
 
         return isDateOfThisWeek;
     };
+    handleClickScheduleTime = (time) => {
+        this.setState({
+            isOpenModalBooking: true,
+            dataScheduleTimeModal: time,
+        });
+    };
+    closeModalBooking = () => {
+        this.setState({
+            isOpenModalBooking: false,
+        });
+    };
     render() {
         let { allDays, allAvailableTime, isDateOfThisWeek } = this.state;
         let { language } = this.props;
         return (
-            <div className={cx('manage-doctor-wrapper')}>
-                <div className={cx('wrapper')}>
-                    <div className={cx('select-day')}>
-                        <select onChange={(e) => this.handleChangeday(e)}>
-                            {allDays &&
-                                allDays.length > 0 &&
-                                allDays.map((item, index) => (
-                                    <option key={index} value={item.value}>
-                                        {item.lable}
-                                    </option>
-                                ))}
-                        </select>
-                    </div>
-                    <div className={cx('all-available-time')}>
-                        <span className={cx('text-calendar')}>
-                            <AiFillCalendar className={cx('icon-calendar')} />
-                            <p>
-                                <FormattedMessage id="patient.detail-doctor.schedule" />
-                            </p>
-                        </span>
-                        <div className={cx('time-content')}>
-                            {allAvailableTime && allAvailableTime.length > 0 ? (
-                                allAvailableTime.map((item, index) => {
-                                    let timeDisplay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
-
-                                    return (
-                                        <button className={cx('option-time', language, isDateOfThisWeek ? 'in-week' : '')} key={index}>
-                                            {timeDisplay}
-                                        </button>
-                                    );
-                                })
-                            ) : (
-                                <span className={cx('text-notify-no-schedule')}>
-                                    <p>
-                                        <FormattedMessage id="patient.detail-doctor.message-no-schedule" />
-                                    </p>
-                                </span>
-                            )}
+            <>
+                <div className={cx('manage-doctor-wrapper')}>
+                    <div className={cx('wrapper')}>
+                        <div className={cx('select-day')}>
+                            <select onChange={(e) => this.handleChangeday(e)}>
+                                {allDays &&
+                                    allDays.length > 0 &&
+                                    allDays.map((item, index) => (
+                                        <option key={index} value={item.value}>
+                                            {item.lable}
+                                        </option>
+                                    ))}
+                            </select>
                         </div>
-                        <div className={cx('book-free')}>
-                            <span>
-                                <FormattedMessage id="patient.detail-doctor.choose" />
-                                <BsHandIndexThumb className={cx('icon-choose')} />
-                                <FormattedMessage id="patient.detail-doctor.book-free" />
-                                <sup>đ</sup>
-                                {')'}
+                        <div className={cx('all-available-time')}>
+                            <span className={cx('text-calendar')}>
+                                <AiFillCalendar className={cx('icon-calendar')} />
+                                <p>
+                                    <FormattedMessage id="patient.detail-doctor.schedule" />
+                                </p>
                             </span>
+                            <div className={cx('time-content')}>
+                                {allAvailableTime && allAvailableTime.length > 0 ? (
+                                    allAvailableTime.map((item, index) => {
+                                        let timeDisplay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+
+                                        return (
+                                            <button
+                                                className={cx('option-time', language, isDateOfThisWeek ? 'in-week' : '')}
+                                                key={index}
+                                                onClick={() => this.handleClickScheduleTime(item)}
+                                            >
+                                                {timeDisplay}
+                                            </button>
+                                        );
+                                    })
+                                ) : (
+                                    <span className={cx('text-notify-no-schedule')}>
+                                        <p>
+                                            <FormattedMessage id="patient.detail-doctor.message-no-schedule" />
+                                        </p>
+                                    </span>
+                                )}
+                            </div>
+                            <div className={cx('book-free')}>
+                                <span>
+                                    <FormattedMessage id="patient.detail-doctor.choose" />
+                                    <BsHandIndexThumb className={cx('icon-choose')} />
+                                    <FormattedMessage id="patient.detail-doctor.book-free" />
+                                    <sup>đ</sup>
+                                    {')'}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <BookingModal
+                    isOpenModal={this.state.isOpenModalBooking}
+                    closeModalBooking={this.closeModalBooking}
+                    dataTime={this.state.dataScheduleTimeModal}
+                />
+            </>
         );
     }
 }

@@ -42,7 +42,6 @@ class DetailDoctor extends Component {
     };
     render() {
         let { isShowExtraPrice, extraInfor } = this.state;
-        console.log(extraInfor);
         let { language } = this.props;
         return (
             <div className={cx('doctor-extra-infor-container')}>
