@@ -1,33 +1,45 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Specialties', {
+    await queryInterface.createTable("Specialty", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      description: {
-        type: Sequelize.TEXT
+      nameVn: {
+        type: Sequelize.STRING,
+      },
+      nameEn: {
+        type: Sequelize.STRING,
+      },
+      descriptionMarkdownVn: {
+        type: Sequelize.TEXT,
+      },
+      descriptionMarkdownEn: {
+        type: Sequelize.TEXT,
+      },
+      descriptionHtmlVn: {
+        type: Sequelize.TEXT,
+      },
+      descriptionHtmlEn: {
+        type: Sequelize.TEXT,
       },
       image: {
-        type: Sequelize.STRING
-      },
-      name: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB("long"),
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Specialties');
+    await queryInterface.dropTable("Specialty");
   }
 };

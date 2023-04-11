@@ -137,6 +137,7 @@
             "select-province":"Chọn Tỉnh/Thành phố",
             "name-clinic":"Tên phòng khám",
             "address-clinic":"Địa chỉ phòng khám",
+            "name-specialty":"Tên Chuyên khoa",
             "note":"Ghi chú"
         }
     }

@@ -55,32 +55,63 @@
     user-select: none;
 
     a {
-        padding: 5px !important;
-        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        vertical-align: top !important;
+        white-space: normal !important;
+        background: rgba(255,255,255,1);
+        overflow: hidden;
         margin: 5px;
+        text-decoration: none;
+        &.is-boder{
+            text-align: center;
+            border: 1px solid #eee;
+            padding: 10px 5px;
+
+        }
         h3 {
-            color: #111;
+            color: #706e6e;
             padding: 5px 0;
             font-size: 13px;
         }
+        &:hover{
+            h3{
+                color: #45c3d2;
+            }
+
+        }
     }
     .out-bg {
-        padding-top: 12px;
-        border: 1px solid #eee;
-        .image-item {
-            width: 100%;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
-            margin-bottom: 10px;
-            position: relative;
-            overflow: hidden;
-
-            &.outstanding-doctor {
+        
+        &.outstanding-doctor {
+            padding-top: 12px;
+            .image-item {
                 width: 120px;
                 height: 120px;
                 border-radius: 50%;
                 margin: 0px auto;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                margin-bottom: 10px;
+                position: relative;
+                overflow: hidden;
+    
+            }
+        }
+        &.specialty {
+            .image-item {
+                width: 100%;
+                margin: 0px auto;
+                padding-top: 56.25%;
+                width: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                margin-bottom: 10px;
+                position: relative;
+                overflow: hidden;
+    
             }
         }
     }
@@ -125,6 +156,7 @@
     font-size: 13px;
     text-align: center;
 }
+
 
 .specialty-doctor {
     color: #555;

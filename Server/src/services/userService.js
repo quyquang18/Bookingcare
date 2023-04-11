@@ -126,7 +126,6 @@ let createNewUser = (data) => {
           positionId: data.position,
           image: data.avatar,
         });
-
         // let token = await db.Token.create({
         //     token: crypto.randomBytes(32).toString("hex"),
         //     userId: user.id,

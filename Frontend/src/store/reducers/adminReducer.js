@@ -15,6 +15,7 @@ const initialState = {
     arrPrice: [],
     arrPayment: [],
     arrProvince: [],
+    arrSpecialty: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -139,6 +140,17 @@ const adminReducer = (state = initialState, action) => {
             state.arrPrice = [];
             state.arrPayment = [];
             state.arrProvince = [];
+            return {
+                ...state,
+            };
+
+        case actionTypes.FETCH_ALL_SPECIALTY_SUCCESS:
+            state.arrSpecialty = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_ALL_SPECIALTY_FAILED:
+            state.arrSpecialty = [];
             return {
                 ...state,
             };

@@ -135,6 +135,7 @@
             "select-province":"Select Province/City",
             "name-clinic":"Clinic name",
             "address-clinic":"Clinic address",
+            "name-specialty":"Specialist name",
             "note":"Note"
         }
     }

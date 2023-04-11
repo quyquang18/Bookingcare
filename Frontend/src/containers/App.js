@@ -20,6 +20,7 @@ import DetailDoctor from './Patient/Doctor/DetailDoctor';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import VerifyEmail from './Patient/VerifyEmail/VerifyEmail';
+import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 
 class App extends Component {
     handlePersistorState = () => {
@@ -49,17 +50,18 @@ class App extends Component {
                         {this.props.isLoggedIn && <Header />}
 
                         <span className="content-container">
-                            <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
-                                <Switch>
-                                    <Route path={path.HOME} exact component={Home} />
-                                    <Route path={path.HOMEPAGE} exact component={HomePage} />
-                                    <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                    <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                    <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
-                                    <Route path={path.VERIFY_BOOKING} component={VerifyEmail} />
-                                    <Route path={'/doctor/'} component={Doctor} />
-                                </Switch>
-                            </CustomScrollbars>
+                            {/* <CustomScrollbars style={{ height: '100vh', width: '100%' }}> */}
+                            <Switch>
+                                <Route path={path.HOME} exact component={Home} />
+                                <Route path={path.HOMEPAGE} exact component={HomePage} />
+                                <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                                <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                                <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+                                <Route path={path.VERIFY_BOOKING} component={VerifyEmail} />
+                                <Route path={'/doctor/'} component={Doctor} />
+                                <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
+                            </Switch>
+                            {/* </CustomScrollbars> */}
                         </span>
 
                         <ToastContainer

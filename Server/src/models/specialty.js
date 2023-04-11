@@ -13,13 +13,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  Specialty.init({
-    name: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    image: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Specialty',
-  });
+  Specialty.init(
+    {
+      nameVn: DataTypes.STRING,
+      nameEn: DataTypes.STRING,
+      descriptionMarkdownVn: DataTypes.TEXT,
+      descriptionMarkdownEn: DataTypes.TEXT,
+      descriptionHtmlVn: DataTypes.TEXT,
+      descriptionHtmlEn: DataTypes.TEXT,
+      image: DataTypes.BLOB("long"),
+    },
+    {
+      sequelize,
+      modelName: "Specialty",
+      freezeTableName: true,
+    }
+  );
   return Specialty;
 };

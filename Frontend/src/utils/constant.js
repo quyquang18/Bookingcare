@@ -6,13 +6,14 @@ export const path = {
     SYSTEM: '/system',
     DETAIL_DOCTOR: '/detail-doctor/:id',
     VERIFY_BOOKING: '/patient/:id/verify-booking/:token',
+    DETAIL_SPECIALTY: '/detail-specialty/:id',
 };
 
 export const LANGUAGES = {
     VI: 'vi',
     EN: 'en',
 };
- 
+
 export const CRUD_ACTIONS = {
     CREATE: 'CREATE',
     EDIT: 'EDIT',
@@ -21,13 +22,13 @@ export const CRUD_ACTIONS = {
 };
 
 export const dateFormat = {
-    SEND_TO_SERVER: 'DD/MM/YYYY'
+    SEND_TO_SERVER: 'DD/MM/YYYY',
 };
 
 export const YesNoObj = {
     YES: 'Y',
-    NO: 'N'
-}
+    NO: 'N',
+};
 export const USER_ROLE = {
     ADMIN: 'R1',
     DOCTOR: 'R2',
@@ -42,4 +43,5 @@ export const INFOR_DOCTOR = {
     PROVINCE: 'PROVINCE',
     TIME: 'TIME',
     NAME: 'NAME',
+    SPECIALTY: 'SPECIALTY',
 };

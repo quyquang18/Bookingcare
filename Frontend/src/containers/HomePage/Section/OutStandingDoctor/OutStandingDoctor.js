@@ -68,10 +68,10 @@ class OutStandingDoctor extends Component {
                                         let valueEn = `${item.positionData.valueEn}, ${item.lastName} ${item.firstName}`;
                                         return (
                                             <div key={index} onClick={() => this.handleViewDetailDoctor(item)}>
-                                                <a href="" key={index} style={{ width: '278px' }}>
-                                                    <div className="out-bg">
+                                                <a href="" key={index} style={{ width: '278px' }} className="is-boder">
+                                                    <div className="out-bg outstanding-doctor">
                                                         <div
-                                                            className="image-item outstanding-doctor"
+                                                            className="image-item "
                                                             style={{ backgroundImage: `url(${imageBase64})` }}
                                                         ></div>
                                                     </div>
