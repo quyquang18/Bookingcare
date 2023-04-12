@@ -10,6 +10,7 @@ import { getAllDoctor, updateInforDoctor, getTopDoctorHomeService } from '~/serv
 import { toast } from 'react-toastify';
 import { INFOR_DOCTOR } from '~/utils';
 import { getAllSpecialty } from '~/services/specialtyService';
+import { getAllClinic } from '~/services/ClinicService';
 //Gender
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
@@ -311,6 +312,24 @@ export const fetchAllSpecialty = () => {
             console.log('FETCH_ALL_SPECIALTY_FAILED: ', error);
             dispatch({
                 type: actionTypes.FETCH_ALL_SPECIALTY_FAILED,
+            });
+        }
+    };
+};
+export const fetchAllClinic = (mode) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllClinic(mode);
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_CLINIC_SUCCESS,
+                    data: res.data,
+                });
+            }
+        } catch (error) {
+            console.log('FETCH_ALL_CLINIC_FAILED: ', error);
+            dispatch({
+                type: actionTypes.FETCH_ALL_CLINIC_FAILED,
             });
         }
     };

@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 
 import SliderSlick from '~/components/SliderSlick';
 import { LANGUAGES } from '~/utils';
-import './CustumizeStyleSlickSlider.scss';
+// import './CustumizeStyleSlickSlider.scss';
 import * as actions from '~/store/actions';
 import { dispatch } from '~/redux';
 
@@ -44,7 +44,8 @@ class Specialty extends Component {
         };
         let { arrSpecialty } = this.state;
         return (
-            <div className="section-specialty">
+           <div className='section-wrapper'>
+           <div className="section-specialty">
                 <div className="section-container">
                     <div className="section-header">
                         <span className="title-section">
@@ -86,6 +87,7 @@ class Specialty extends Component {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         );
     }

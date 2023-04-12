@@ -13,14 +13,28 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  Clinic.init({
-    name: DataTypes.STRING,
-    address: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    image: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Clinic',
-  });
+  Clinic.init(
+    {
+      name: DataTypes.STRING,
+      address: DataTypes.STRING,
+      desEndowHtml: DataTypes.TEXT,
+      desEndowMarkdow: DataTypes.TEXT,
+      desIntroHtml: DataTypes.TEXT,
+      desIntroMarkdown: DataTypes.TEXT,
+      desStrengthsHtml: DataTypes.TEXT,
+      desStrengthsMarkdown: DataTypes.TEXT,
+      desEquipmentHtml: DataTypes.TEXT,
+      desEquipmentMarkdown: DataTypes.TEXT,
+      desAddressHtml: DataTypes.TEXT,
+      desAddressMarkdown: DataTypes.TEXT,
+      desProcedureHtml: DataTypes.TEXT,
+      desProcedureMarkdown: DataTypes.TEXT,
+      image: DataTypes.BLOB("long"),
+    },
+    {
+      sequelize,
+      modelName: "Clinic",
+    }
+  );
   return Clinic;
 };

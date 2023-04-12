@@ -114,6 +114,7 @@ let getDetailSpecialtyById = (inputId, mode) => {
     }
   });
 };
+
 module.exports = {
   createNewSpecialty: createNewSpecialty,
   getAllSpecialty: getAllSpecialty,

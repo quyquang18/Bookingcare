@@ -7,6 +7,7 @@ export const path = {
     DETAIL_DOCTOR: '/detail-doctor/:id',
     VERIFY_BOOKING: '/patient/:id/verify-booking/:token',
     DETAIL_SPECIALTY: '/detail-specialty/:id',
+    DETAIL_CLINIC: '/detail-clinic/:id',
 };
 
 export const LANGUAGES = {
@@ -44,4 +45,5 @@ export const INFOR_DOCTOR = {
     TIME: 'TIME',
     NAME: 'NAME',
     SPECIALTY: 'SPECIALTY',
+    CLINIC: 'CLINIC',
 };

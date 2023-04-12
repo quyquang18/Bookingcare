@@ -10,7 +10,6 @@ import SliderSlick from '~/components/SliderSlick';
 import images from '~/assets/images';
 import { dispatch } from '~/redux';
 import { LANGUAGES } from '~/utils';
-import '../Specialty/CustumizeStyleSlickSlider.scss';
 
 class OutStandingDoctor extends Component {
     constructor(props) {

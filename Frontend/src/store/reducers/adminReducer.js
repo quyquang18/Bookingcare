@@ -16,6 +16,7 @@ const initialState = {
     arrPayment: [],
     arrProvince: [],
     arrSpecialty: [],
+    arrClinic: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -151,6 +152,17 @@ const adminReducer = (state = initialState, action) => {
             };
         case actionTypes.FETCH_ALL_SPECIALTY_FAILED:
             state.arrSpecialty = [];
+            return {
+                ...state,
+            };
+
+        case actionTypes.FETCH_ALL_CLINIC_SUCCESS:
+            state.arrClinic = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_ALL_CLINIC_FAILED:
+            state.arrClinic = [];
             return {
                 ...state,
             };

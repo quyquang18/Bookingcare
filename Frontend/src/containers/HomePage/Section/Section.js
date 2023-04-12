@@ -10,14 +10,16 @@ import OutStandingDoctor from './OutStandingDoctor';
 import SliderSlick from '~/components/SliderSlick';
 import images from '~/assets/images';
 import OutStandingService from './OutStandingService';
-
+import Clinic from './Clinic';
+import './CustumizeStyleSlickSlider.scss';
 class Section extends Component {
     render() {
         return (
-            <div>
+            <div className="section-wrapper">
                 <OutStandingService />
                 <OutStandingDoctor />
                 <Specialty />
+                <Clinic />
             </div>
         );
     }
