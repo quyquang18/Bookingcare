@@ -26,10 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Doctor_infor, {
         foreignKey: "doctorId",
       });
-      User.hasMany(models.Schedule, {
-        foreignKey: "id",
-        as: "doctorData",
-      });
+      // User.hasMany(models.Schedule, {
+      //   foreignKey: "id",
+      //   as: "doctorData",
+      // });
     }
   };
   User.init(

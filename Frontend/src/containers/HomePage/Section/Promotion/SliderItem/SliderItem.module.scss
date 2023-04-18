@@ -1,11 +1,9 @@
 .item-wrapper {
-    a {
         color: #333;
         border-radius: 5px;
-        width: 100%;
         display: inline-block;
         text-decoration: none;
-
+    
         .image-item {
             position: relative;
             padding-top: 56.25%;
@@ -34,22 +32,27 @@
             padding: 5px 0;
             font: 14px/1.5 'Montserrat', sans-serif;
 
-            h3 {
+            .item-name {
                 font-weight: bold;
                 font-size: 15px;
             }
 
-            .sub-content {
+            .item-description {
                 margin: 10px 0 10px 0;
                 color: #444;
                 font-size: 13px;
                 font: 14px/1.5 'Montserrat', sans-serif;
-
-                li {
-                    list-style-type: disc;
-                    display: list-item;
-                    text-align: -webkit-match-parent;
-                }
+                ul:only-child {
+                    &:not(:has(:not(li))) {
+                        padding-left: 25px;
+                        
+                    }
+                  }
+                    li {
+                        list-style-type: disc;
+                        display: list-item;
+                        text-align: -webkit-match-parent;
+                    }
             }
 
             .button-detail {
@@ -76,5 +79,4 @@
                 }
             }
         }
-    }
 }

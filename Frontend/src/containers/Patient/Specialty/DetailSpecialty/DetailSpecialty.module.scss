@@ -1,0 +1,92 @@
+.detail-specialty-container {
+    background-color: #eeeeee;
+    padding-bottom: 20px;
+    .specialty-first-part-background{
+        background: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    .specialty-first-part{
+        background-image: linear-gradient(rgba(255, 255, 255, 0.8),rgba(255, 255, 255, 0.9),rgba(255, 255, 255, 1));
+    padding: 10px 0;
+    }
+    }
+    .name-specialty {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px 0;
+    }
+    .description-specialty {
+        color: #333;
+        padding: 0px 15px 0px 0px;
+        overflow: hidden;
+        ul {
+            margin: 10px 0px 10px 25px;
+            li {
+                text-align: justify;
+                line-height: 1.8;
+            }
+        }
+        
+        &.hide{
+            max-height: 90px;
+            
+        }
+
+    }
+    .btn-show-hide{
+        font-size: 14px;
+        color: #288ad6;
+        padding-top: 5px;
+        cursor: pointer;
+        display: block;
+    }
+    .select-sp-province {
+        padding: 10px 0;
+        
+        .selected {
+            display: block;
+            padding: 6px 28px 6px 12px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            vertical-align: middle;
+            background-color: #fff;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: none;
+          
+        }
+    }
+    .each-doctor {
+        background-color: #fff;
+        box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        border-radius: 8px;
+        border-bottom: none;
+        margin-bottom: 10px;
+        display: flex;
+        .content-left {
+            width: 53%;
+            border-right: 1px solid #eee;
+            padding-right: 10px;
+        }
+        .content-right {
+            width: 47%;
+
+            .doctor-extrainfor {
+                padding: 0px 15px 15px 15px;
+                border-top: 1px solid #eee;
+                padding-top: 10px;
+                margin-top: 10px;
+            }
+        }
+    }
+}

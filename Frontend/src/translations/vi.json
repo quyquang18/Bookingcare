@@ -29,6 +29,8 @@
     },
     "homepage":{
         "outstanding-doctor":"Bác sĩ nổi bật tuần qua",
+        "outstanding-specialty":"Chuyên khoa phổ biến",
+        "outstanding-clinic":"Cơ sở y tế nổi bật",
         "more-info":"Xem thêm"
     },
     "menu": {
@@ -44,7 +46,9 @@
             "specialty":"Chuyên khoa",
             "manage-specialty":"Quản lí chuyên khoa",
             "handbook":"Cẩm nang",
-            "manage-handbook":"Quản lí cẩm nang"
+            "manage-handbook":"Quản lí cẩm nang",
+            "endow":"Ưu đãi",
+            "manage-endow":"Quản lí ưu đãi"
             
         },
         "doctor":{
@@ -75,6 +79,39 @@
         "choose-date":"Chọn ngày",
         "save-infor":"Lưu thông tin"
         
+    },
+    "manage-clinic":{
+        "title":"Quản lý phòng khám",
+        "name-clinic":"Tên phòng khám",
+        "avatar-clinic":"Ảnh đại diện phòng khám",
+        "cover-image-clinic":"Ảnh bìa phòng khám",
+        "create":"Tạo mới",
+        "edit":"Chỉnh sửa",
+        "endow":"Ưu đãi",
+        "intro":"Giới thiệu",
+        "strengths":"Thế mạnh chuyên môn",
+        "location":"Vị trí",
+        "process" :"Quy trình đi khám bệnh",
+        "equiment":"Trang thiết bị",
+        "add":"Thêm mới phòng khám",
+        "save":"Lưu thông tin phòng khám"  
+    },
+    "manage-specialty":{
+        "title":"Quản lý chuyên khoa",
+        "name-specialty-vn":"Tên chuyên khoa Tiếng Việt",
+        "image-specialty-en":"Tên chuyên khoa Tiếng Anh",
+        "image-specialty":"Ảnh chuyên khoa",
+        "des-vn":"Mô tả chuyên khoa Tiếng Việt",
+        "des-en":"Mô tả chuyên khoa Tiếng Anh",
+        "name":"Tên chuyên khoa",
+        "image":"Ảnh",
+        "actions":"Hành động",
+        "previous":"Trước",
+        "next":"Sau",
+        "add":"Thêm mới chuyên khoa",
+        "save":"Lưu thông chuyên khoa" ,
+        "create":"Tạo mới",
+        "edit":"Chỉnh sửa"
     },
     "patient":{
         "detail-doctor":{
@@ -122,6 +159,14 @@
             "province":"Tỉnh / Thành",
             "district":"Quận / Huyện",
             "address":"Địa chỉ"
+        },
+        "detail-clinic":{
+            "listDoctor":"Đặt lịch khám",
+            "desIntroHtml":"Giới thiệu",
+            "desStrengthsHtml":"Thế mạnh chuyên môn",
+            "desEquipmentHtml":"Trang thiết bị",
+            "desAddressHtml":"Vị trí",
+            "desProcedureHtml":"Quy trình đi khám"
         }
     },
     "admin":{

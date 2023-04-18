@@ -3,10 +3,8 @@
  */
  * {
   margin: 0;
-  padding: 0;
   border: 0;
     font-size: 100%;
-    font: inherit;
     vertical-align: baseline;
 }
 
@@ -55,4 +53,12 @@ body {
   width: 1170px;
   margin-right: auto;
   margin-left: auto;
+}
+html *::-webkit-scrollbar {
+  border-radius: 0;
+  width: 6px;
+}
+html *::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(22, 24, 35, 0.3);
 }

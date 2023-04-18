@@ -8,6 +8,7 @@ import RegisterPackageGroupOrAcc from '~/containers/System/RegisterPackageGroupO
 import ManageDoctor from '~/containers/System/ManageDoctor';
 import ManageSpecialty from '~/containers/System/Doctor/ManageSpecialty/ManageSpecialty';
 import ManageClinic from '~/containers/System/Doctor/ManageClinic';
+import OfferManagement from '~/containers/System/Doctor/OfferManagement';
 class System extends Component {
     render() {
         const { systemMenuPath } = this.props;
@@ -22,6 +23,7 @@ class System extends Component {
                         <Route path="/system/register-package-group-or-account" component={RegisterPackageGroupOrAcc} />
                         <Route path="/system/manage-specialty" component={ManageSpecialty} />
                         <Route path="/system/manage-clinic" component={ManageClinic} />
+                        <Route path="/system/offe-management" component={OfferManagement} />
                         <Route
                             component={() => {
                                 return <Redirect to={systemMenuPath} />;

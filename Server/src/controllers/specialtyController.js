@@ -34,9 +34,8 @@ let getAllSpecialty = async (req, res) => {
   }
 };
 let getDetailSpecialtyById = async (req, res) => {
-  console.log(req.query);
   try {
-    let response = await patientServices.getDetailSpecialtyById(req.query.id);
+    let response = await patientServices.getDetailSpecialtyById(req.query.id, req.query.location);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(200).json({

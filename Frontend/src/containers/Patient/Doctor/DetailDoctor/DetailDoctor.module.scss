@@ -1,4 +1,9 @@
-
+pre {
+    color: #555;
+    font-size: 13px;
+    font: 14px/1.5 'Montserrat', sans-serif;
+    white-space: pre-line;
+}
 .intro-doctor {
     padding: 30px 0px 15px;
     background: #fff;
@@ -53,11 +58,17 @@
         margin-top: 0px;
     }
 }
-.detail-infor-doctor{
-    ul{
-        padding-left: 40px;
-        li{
-            line-height: 1.7;
+.detail-infor-doctor {
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ccc;
+    .des-infor {
+        padding: 15px 0px;
+        text-align: justify;
+        ul {
+            padding-left: 40px;
+            li {
+                line-height: 1.7;
+            }
         }
     }
 }

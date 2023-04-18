@@ -10,6 +10,8 @@ import { handleGetAllUsers, createNewUserService, deleteUserService, editUserSer
 import ModalUser from '../ModalUser';
 import { emitter } from '~/utils/emitter';
 import ModalEditUser from '../ModalEditUser';
+import * as actions from '~/store/actions';
+import _ from 'lodash';
 const cx = classNames.bind(styles);
 
 class UserManage extends Component {
@@ -17,13 +19,34 @@ class UserManage extends Component {
         super(props);
         this.state = {
             arrUsers: [],
+            arrGender: [],
+            arrRoleID: [],
+            arrPosition: [],
             isOpenModalUser: false,
             isOpenModalEditUser: false,
             dataUserEdit: '',
         };
     }
     async componentDidMount() {
+        this.props.getGenderStart();
+        this.props.getPositionStart();
+        this.props.getRoleStart();
         await this.getAllUserFromReact();
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.genderFromRedux !== prevProps.genderFromRedux) {
+            const arrGender = this.props.genderFromRedux;
+            this.setState({
+                arrGender: arrGender,
+            });
+        }
+
+        if (this.props.roleFromRedux !== prevProps.roleFromRedux) {
+            const arrRole = this.props.roleFromRedux;
+            this.setState({
+                arrRoleID: arrRole,
+            });
+        }
     }
     handleAddNewUser = () => {
         this.setState({ isOpenModalUser: true });
@@ -88,7 +111,7 @@ class UserManage extends Component {
         this.setState({ dataUserEdit: user });
     };
     render() {
-        console.log(this.state.arrUsers);
+        let { arrUsers, arrGender } = this.state;
         return (
             <div className={cx('users-container')}>
                 <ModalUser
@@ -126,33 +149,42 @@ class UserManage extends Component {
                                 <th>Address</th>
                                 <th>Actions</th>
                             </tr>
-                            {this.state.arrUsers.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{index}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.firstName}</td>
-                                    <td>{item.lastName}</td>
-                                    <td>{item.phonenumber}</td>
-                                    <td>
-                                        {(+item.gender === 1 && 'Male') ||
-                                            (+item.gender === 0 && 'FeMale') ||
-                                            (+item.gender === 2 && 'Other')}
-                                    </td>
-                                    <td>{item.address}</td>
-                                    <td>
-                                        <button className={cx('btn-action')}>
-                                            <HiPencilSquare
-                                                className={cx('icon-btn-edit')}
-                                                onClick={() => this.handleEditUser(item)}
-                                            />
-                                            <MdDeleteForever
-                                                className={cx('icon-btn-delete')}
-                                                onClick={() => this.handleDeleteUser(item)}
-                                            />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {arrUsers &&
+                                arrUsers.length > 0 &&
+                                arrUsers.map((item, index) => {
+                                    let gender = '';
+                                    let valuegender = '';
+
+                                    if (arrGender && arrGender.length > 0) {
+                                        gender = arrGender.find((itemGender) => itemGender.keyMap === item.gender);
+                                        if (gender && !_.isEmpty(gender)) {
+                                            valuegender = gender.valueVI;
+                                        }
+                                    }
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index}</td>
+                                            <td>{item.email}</td>
+                                            <td>{item.firstName}</td>
+                                            <td>{item.lastName}</td>
+                                            <td>{item.phonenumber}</td>
+                                            <td>{valuegender}</td>
+                                            <td>{item.address}</td>
+                                            <td>
+                                                <button className={cx('btn-action')}>
+                                                    <HiPencilSquare
+                                                        className={cx('icon-btn-edit')}
+                                                        onClick={() => this.handleEditUser(item)}
+                                                    />
+                                                    <MdDeleteForever
+                                                        className={cx('icon-btn-delete')}
+                                                        onClick={() => this.handleDeleteUser(item)}
+                                                    />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
                         </tbody>
                     </table>
                 </div>
@@ -162,11 +194,20 @@ class UserManage extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        language: state.app.language,
+        genderFromRedux: state.admin.genders,
+        positionFromRedux: state.admin.positions,
+        roleFromRedux: state.admin.roles,
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {};
+    return {
+        getGenderStart: () => dispatch(actions.fetchGenderStart()),
+        getPositionStart: () => dispatch(actions.fetchPositionStart()),
+        getRoleStart: () => dispatch(actions.fetchRoleStart()),
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserManage);

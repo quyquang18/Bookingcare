@@ -31,8 +31,14 @@ class DoctorSchedule extends Component {
         this.setState({
             allDays,
         });
-        // let res = await getScheduleByDate(this.props.doctorId, new Date());
-        // console.log(res);
+        if (this.props.doctorId ) {
+                let res = await getScheduleByDate(this.props.doctorId, allDays[0].value);
+                if (res && res.errCode === 0) {
+                    this.setState({
+                        allAvailableTime: res.data.length > 0 ? res.data : [],
+                    });
+                }
+        }
     }
     getArrDays = (language) => {
         let allDays = [];
@@ -129,57 +135,56 @@ class DoctorSchedule extends Component {
         return (
             <>
                 <div className={cx('manage-doctor-wrapper')}>
-                    <div className={cx('wrapper')}>
-                        <div className={cx('select-day')}>
-                            <select onChange={(e) => this.handleChangeday(e)}>
-                                {allDays &&
-                                    allDays.length > 0 &&
-                                    allDays.map((item, index) => (
-                                        <option key={index} value={item.value}>
-                                            {item.lable}
-                                        </option>
-                                    ))}
-                            </select>
-                        </div>
-                        <div className={cx('all-available-time')}>
-                            <span className={cx('text-calendar')}>
-                                <AiFillCalendar className={cx('icon-calendar')} />
-                                <p>
-                                    <FormattedMessage id="patient.detail-doctor.schedule" />
-                                </p>
-                            </span>
-                            <div className={cx('time-content')}>
-                                {allAvailableTime && allAvailableTime.length > 0 ? (
-                                    allAvailableTime.map((item, index) => {
-                                        let timeDisplay = language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
+                    <div className={cx('select-day')}>
+                        <select onChange={(e) => this.handleChangeday(e)}>
+                            {allDays &&
+                                allDays.length > 0 &&
+                                allDays.map((item, index) => (
+                                    <option key={index} value={item.value}>
+                                        {item.lable}
+                                    </option>
+                                ))}
+                        </select>
+                    </div>
+                    <div className={cx('all-available-time')}>
+                        <span className={cx('text-calendar')}>
+                            <AiFillCalendar className={cx('icon-calendar')} />
+                            <p>
+                                <FormattedMessage id="patient.detail-doctor.schedule" />
+                            </p>
+                        </span>
+                        <div className={cx('time-content')}>
+                            {allAvailableTime && allAvailableTime.length > 0 ? (
+                                allAvailableTime.map((item, index) => {
+                                    let timeDisplay =
+                                        language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn;
 
-                                        return (
-                                            <button
-                                                className={cx('option-time', language, isDateOfThisWeek ? 'in-week' : '')}
-                                                key={index}
-                                                onClick={() => this.handleClickScheduleTime(item)}
-                                            >
-                                                {timeDisplay}
-                                            </button>
-                                        );
-                                    })
-                                ) : (
-                                    <span className={cx('text-notify-no-schedule')}>
-                                        <p>
-                                            <FormattedMessage id="patient.detail-doctor.message-no-schedule" />
-                                        </p>
-                                    </span>
-                                )}
-                            </div>
-                            <div className={cx('book-free')}>
-                                <span>
-                                    <FormattedMessage id="patient.detail-doctor.choose" />
-                                    <BsHandIndexThumb className={cx('icon-choose')} />
-                                    <FormattedMessage id="patient.detail-doctor.book-free" />
-                                    <sup>đ</sup>
-                                    {')'}
+                                    return (
+                                        <button
+                                            className={cx('option-time', language, isDateOfThisWeek ? 'in-week' : '')}
+                                            key={index}
+                                            onClick={() => this.handleClickScheduleTime(item)}
+                                        >
+                                            {timeDisplay}
+                                        </button>
+                                    );
+                                })
+                            ) : (
+                                <span className={cx('text-notify-no-schedule')}>
+                                    <p>
+                                        <FormattedMessage id="patient.detail-doctor.message-no-schedule" />
+                                    </p>
                                 </span>
-                            </div>
+                            )}
+                        </div>
+                        <div className={cx('book-free')}>
+                            <span>
+                                <FormattedMessage id="patient.detail-doctor.choose" />
+                                <BsHandIndexThumb className={cx('icon-choose')} />
+                                <FormattedMessage id="patient.detail-doctor.book-free" />
+                                <sup>đ</sup>
+                                {')'}
+                            </span>
                         </div>
                     </div>
                 </div>

@@ -122,7 +122,7 @@ class ManageDoctor extends Component {
             'selectedPrice',
             'selectedPayment',
             'selectedProvince',
-            // 'selectedClinic',
+            'selectedClinic',
             'note',
             'description',
             'contentMarkdown',
@@ -139,20 +139,18 @@ class ManageDoctor extends Component {
         }
         return isValid;
     };
-    handleSaveContentMarkdown = () => {
+    handleSaveInforDoctor = () => {
         const { contentMarkdown, contentHTML, description, actions } = this.state;
         const { selectedDoctor, selectedPrice, selectedPayment, selectedProvince, selectedSpecialty } = this.state;
         const { selectedClinic, note } = this.state;
-        console.log(this.state);
-        return;
         let isValid = this.checkValidateInput();
         if (isValid) {
             this.props.saveDetailDoctor({
                 contentMarkdown,
                 contentHTML,
                 description,
+                actions,
                 doctorId: selectedDoctor.value,
-                options: actions,
                 selectedPrice: selectedPrice.value,
                 selectedPayment: selectedPayment.value,
                 selectedProvince: selectedProvince.value,
@@ -166,7 +164,8 @@ class ManageDoctor extends Component {
         let { listPayment, listPrice, listProvince, listClinic, listSpecialty } = this.state;
         this.setState({ selectedDoctor });
         let res = await getDetailDoctorById(selectedDoctor.value);
-        if (res.errCode === 0 && res.data && res.data.Markdown && res.data.Markdown.contentMarkdown) {
+        console.log(res);
+        if (res.errCode === 0 && res.data) {
             let markdown = res.data.Markdown;
             let note = '',
                 priceId = '',
@@ -187,21 +186,22 @@ class ManageDoctor extends Component {
                 priceId = doctorInfor.priceId;
                 paymentId = doctorInfor.paymentId;
                 provinceId = doctorInfor.provinceId;
-                clinicId = doctorInfor.provinceId;
-                specialtyId = doctorInfor.provinceId;
+                clinicId = doctorInfor.clinicId;
+                specialtyId = doctorInfor.specialtyId;
 
                 selectedPrice = listPrice.find((item) => item.value === priceId);
                 selectedPayment = listPayment.find((item) => item.value === paymentId);
                 selectedProvince = listProvince.find((item) => item.value === provinceId);
                 selectedClinic = listClinic.find((item) => item.value === clinicId);
                 selectedSpecialty = listSpecialty.find((item) => item.value === specialtyId);
+                console.log(selectedClinic);
             }
             this.setState({
-                contentMarkdown: markdown.contentMarkdown,
-                contentHTML: markdown.contentHTML,
-                description: markdown.description,
+                contentMarkdown: markdown.contentMarkdown || '',
+                contentHTML: markdown.contentHTML || '',
+                description: markdown.description || '',
                 actions: CRUD_ACTIONS.EDIT,
-                note,
+                note: note || '',
                 selectedPrice,
                 selectedPayment,
                 selectedProvince,
@@ -215,6 +215,11 @@ class ManageDoctor extends Component {
                 description: '',
                 actions: CRUD_ACTIONS.CREATE,
                 note: '',
+                selectedPrice: null,
+                selectedPayment: null,
+                selectedProvince: null,
+                selectedClinic: null,
+                selectedSpecialty: null,
             });
         }
     };
@@ -291,6 +296,7 @@ class ManageDoctor extends Component {
             this.state;
         let { selectedDoctor, selectedPrice, selectedPayment, selectedProvince, selectedSpecialty } = this.state;
         let { note, listClinic, selectedClinic } = this.state;
+
         return (
             <div className={cx('manage-doctor-wrapper')}>
                 <div className={cx('manage-doctor-title')}>
@@ -400,7 +406,7 @@ class ManageDoctor extends Component {
                 <div className={cx('wrapper-btn')}>
                     <button
                         className={cx(actions === CRUD_ACTIONS.CREATE ? 'btn-create' : 'btn-edit')}
-                        onClick={() => this.handleSaveContentMarkdown()}
+                        onClick={() => this.handleSaveInforDoctor()}
                     >
                         {actions === CRUD_ACTIONS.CREATE ? (
                             <FormattedMessage id="admin.manage-doctor.add" />

@@ -18,13 +18,16 @@ class DetailDoctor extends Component {
             extraInfor: {},
         };
     }
-    async componentDidMount() {}
+    async componentDidMount() {
+        let res = await getExtraInforDoctorById(this.props.doctorId);
+        if (res && res.errCode === 0) {
+            this.setState({
+                extraInfor: res.data,
+            });
+        }
+    }
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.language !== prevProps.language) {
-            // let allDays = this.getArrDays(this.props.language);
-            // this.setState({
-            //     allDays,
-            // });
         }
         if (this.props.doctorId !== prevProps.doctorId) {
             let res = await getExtraInforDoctorById(this.props.doctorId);
@@ -40,6 +43,20 @@ class DetailDoctor extends Component {
             isShowExtraPrice,
         });
     };
+    renderExtraInforNote = () => {
+        let { extraInfor } = this.state;
+        let note = [];
+        if (extraInfor && extraInfor.note) {
+            let lines = extraInfor.note.split('-');
+            const wrappedLines = lines.map((line) => {
+                if (line) {
+                    return `<p>- ${line.trim()}</p>`;
+                }
+            });
+            note = wrappedLines.join('');
+        }
+        return <span dangerouslySetInnerHTML={{ __html: note }} />;
+    };
     render() {
         let { isShowExtraPrice, extraInfor } = this.state;
         let { language } = this.props;
@@ -49,8 +66,10 @@ class DetailDoctor extends Component {
                     <h3 className={cx('title-infor')}>
                         <FormattedMessage id={'patient.extra-info-doctor.address-clinic'} />
                     </h3>
-                    <div className={cx('name-clinic')}>{extraInfor.nameClinic || ''}</div>
-                    <div className={cx('address-clinic')}>{extraInfor.addressClinic}</div>
+                    <div className={cx('name-clinic')}>{extraInfor && extraInfor.ClinicData && extraInfor.ClinicData.name}</div>
+                    <div className={cx('address-clinic')}>
+                        {extraInfor && extraInfor.ClinicData && extraInfor.ClinicData.address}
+                    </div>
                 </div>
                 <div className={cx('infor-price')}>
                     <h3 className={cx('title-infor')}>
@@ -60,10 +79,18 @@ class DetailDoctor extends Component {
                         <div className={cx('content-hide')}>
                             <span>
                                 {extraInfor.priceTypeData && language === LANGUAGES.VI && (
-                                    <NumericFormat value={extraInfor.priceTypeData.valueVi} displayType="text" thousandSeparator={true} />
+                                    <NumericFormat
+                                        value={extraInfor.priceTypeData.valueVi}
+                                        displayType="text"
+                                        thousandSeparator={true}
+                                    />
                                 )}
                                 {extraInfor.priceTypeData && language === LANGUAGES.EN && (
-                                    <NumericFormat value={extraInfor.priceTypeData.valueEn} displayType="text" thousandSeparator={true} />
+                                    <NumericFormat
+                                        value={extraInfor.priceTypeData.valueEn}
+                                        displayType="text"
+                                        thousandSeparator={true}
+                                    />
                                 )}
                                 <sup>{language === LANGUAGES.VI ? 'đ' : '$'}</sup>
                             </span>
@@ -85,8 +112,9 @@ class DetailDoctor extends Component {
                                                 <p className="mb-1">
                                                     <FormattedMessage id={'patient.extra-info-doctor.price'} />
                                                 </p>
-                                                <small>
-                                                    <FormattedMessage id={'patient.extra-info-doctor.note'} /> : {extraInfor && extraInfor.note}
+                                                <small className={cx('text-note')}>
+                                                    <FormattedMessage id={'patient.extra-info-doctor.note'} /> :
+                                                    {this.renderExtraInforNote()}
                                                 </small>
                                             </td>
                                             <td>
@@ -112,9 +140,11 @@ class DetailDoctor extends Component {
                                         <tr>
                                             <td colSpan="2">
                                                 <FormattedMessage id={'patient.extra-info-doctor.text-payment'} />
-                                                {extraInfor.paymentTypeData && language === LANGUAGES.VI
-                                                    ? extraInfor.paymentTypeData.valueVi
-                                                    : extraInfor.paymentTypeData.valueEn}
+                                                {extraInfor.paymentTypeData &&
+                                                    extraInfor.paymentTypeData.valueVi &&
+                                                    (language === LANGUAGES.VI
+                                                        ? extraInfor.paymentTypeData.valueVi
+                                                        : extraInfor.paymentTypeData.valueEn)}
                                             </td>
                                         </tr>
                                     </tfoot>

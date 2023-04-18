@@ -17,10 +17,8 @@
     }
 }
 .load-image-container{
-    display: flex;
-    align-items: flex-start;
     .load-image-lable{
-        width: 35%;
+        width: 80%;
         margin-bottom: 0px !important;
         height: 35px;
         line-height: 38px;
@@ -47,8 +45,9 @@
         display: block;
         height: auto;
         min-height: 105px;
-        width: 45%;
+        width: 80%;
         box-shadow: -1px -1px 6px #ccc;
+        margin-top: 8px;
         padding: 2px;
         background-size: contain;
         background-repeat: no-repeat;
@@ -70,6 +69,7 @@
     display: flex;
     justify-content: center;
     margin-top: 22px;
+    padding-bottom: 22px;
     .btn-save {
         padding: 8px 22px;
         border-radius: 5px;

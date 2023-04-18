@@ -22,6 +22,17 @@ let getAllClinic = async (req, res) => {
     });
   }
 };
+let getTopClinicHome = async (req, res) => {
+  try {
+    let response = await clinicService.getTopClinicHome(req.query.limit);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(200).json({
+      errCode: -1,
+      message: "Error from server",
+    });
+  }
+};
 let getDetailClinicById = async (req, res) => {
   try {
     let response = await clinicService.getDetailClinicById(req.query.id);
@@ -49,4 +60,5 @@ module.exports = {
   getAllClinic: getAllClinic,
   getDetailClinicById: getDetailClinicById,
   editInforClinic: editInforClinic,
+  getTopClinicHome:getTopClinicHome
 };

@@ -10,6 +10,7 @@ import { getDetailDoctorById } from '~/services/doctorService';
 import { LANGUAGES } from '~/utils';
 import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfor from './DoctorExtraInfor';
+import HomeFooter from '~/containers/HomePage/HomeFooter';
 
 const cx = classNames.bind(styles);
 class DetailDoctor extends Component {
@@ -46,52 +47,61 @@ class DetailDoctor extends Component {
             nameVi = `${inforDoctor.positionData.valueVi} ${inforDoctor.firstName} ${inforDoctor.lastName}`;
         }
         return (
-            <div className={cx('detail-doctor-container')}>
-                <div className={cx('intro-doctor')}>
-                    <div className={cx('wrapper')}>
-                        <div className="d-flex">
-                            <div className={cx('image-doctor')} style={{ backgroundImage: `url(${inforDoctor.image})` }}></div>
-                            <div className={cx('description-doctor')}>
-                                <h1 className={cx('name-doctor')}>{language === LANGUAGES.VI ? nameVi : nameEn}</h1>
-                                <div className={cx('summary-doctor')}>
-                                    {inforDoctor && inforDoctor.Markdown && inforDoctor.Markdown.description && (
-                                        <span>{inforDoctor.Markdown.description}</span>
-                                    )}
-                                </div>
-                                <div className={cx('interaction-doctor')}>
-                                    <button className="btn btn-primary d-flex" title="Thích Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng">
-                                        <AiFillLike />
-                                        <FormattedMessage id="patient.detail-doctor.like" /> 43
-                                    </button>
-                                    <button className="btn btn-primary ml-3">
-                                        <FormattedMessage id="patient.detail-doctor.share" />
-                                    </button>
+            <>
+                <div className={cx('detail-doctor-container')}>
+                    <div className={cx('intro-doctor')}>
+                        <div className={cx('wrapper')}>
+                            <div className="d-flex">
+                                <div
+                                    className={cx('image-doctor')}
+                                    style={{ backgroundImage: `url(${inforDoctor.image})` }}
+                                ></div>
+                                <div className={cx('description-doctor')}>
+                                    <h1 className={cx('name-doctor')}>{language === LANGUAGES.VI ? nameVi : nameEn}</h1>
+                                    <div className={cx('summary-doctor')}>
+                                        {inforDoctor && inforDoctor.Markdown && inforDoctor.Markdown.description && (
+                                            <pre>{inforDoctor.Markdown.description}</pre>
+                                        )}
+                                    </div>
+                                    <div className={cx('interaction-doctor')}>
+                                        <button
+                                            className="btn btn-primary d-flex"
+                                            title="Thích Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng"
+                                        >
+                                            <AiFillLike />
+                                            <FormattedMessage id="patient.detail-doctor.like" /> 43
+                                        </button>
+                                        <button className="btn btn-primary ml-3">
+                                            <FormattedMessage id="patient.detail-doctor.share" />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className={cx('wrapper')}>
-                    <div className={cx('schedule-doctor')}>
-                        <div className={cx('content-left')}>
-                            <DoctorSchedule doctorId={this.state.currentDoctorId} />
-                        </div>
-                        <div className={cx('content-right')}>
-                            <DoctorExtraInfor doctorId={this.state.currentDoctorId} />
+                    <div className={cx('wrapper')}>
+                        <div className={cx('schedule-doctor')}>
+                            <div className={cx('content-left')}>
+                                <DoctorSchedule doctorId={this.state.currentDoctorId} />
+                            </div>
+                            <div className={cx('content-right')}>
+                                <DoctorExtraInfor doctorId={this.state.currentDoctorId} />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className={cx('wrapper')}>
                     <div className={cx('detail-infor-doctor')}>
-                        <div className={cx('content')}>
-                            {inforDoctor && inforDoctor.Markdown && inforDoctor.Markdown.contentHTML && (
-                                <div dangerouslySetInnerHTML={{ __html: inforDoctor.Markdown.contentHTML }}></div>
-                            )}
+                        <div className={cx('wrapper')}>
+                            <div className={cx('des-infor')}>
+                                {inforDoctor && inforDoctor.Markdown && inforDoctor.Markdown.contentHTML && (
+                                    <div dangerouslySetInnerHTML={{ __html: inforDoctor.Markdown.contentHTML }}></div>
+                                )}
+                            </div>
                         </div>
                     </div>
+                    <div className={cx('feedback-doctor')}></div>
                 </div>
-                <div className={cx('feedback-doctor')}></div>
-            </div>
+                <HomeFooter />
+            </>
         );
     }
 }

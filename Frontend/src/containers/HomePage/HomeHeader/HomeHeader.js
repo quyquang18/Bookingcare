@@ -26,44 +26,44 @@ class HomeHeader extends Component {
                     <div className={cx('header-options')}>
                         <ul>
                             <li>
-                                <a href="/#chuyenkhoa" dl-cuaso="chuyenkhoa">
+                                <div className={cx('item-options')} href="/#chuyenkhoa" dl-cuaso="chuyenkhoa">
                                     <span>
                                         <FormattedMessage id="home-header.specialty" />
                                     </span>
                                     <span className={cx('sub-title-options')}>
                                         <FormattedMessage id="home-header.search-doctor" />
                                     </span>
-                                </a>
+                                </div>
                             </li>
                             <li>
-                                <a href="/#cosoyte" dl-cuaso="cosoyte">
+                                <div className={cx('item-options')} href="/#cosoyte" dl-cuaso="cosoyte">
                                     <span>
                                         <FormattedMessage id="home-header.health-facility" />
                                     </span>
                                     <span className={cx('sub-title-options')}>
                                         <FormattedMessage id="home-header.select-room" />
                                     </span>
-                                </a>
+                                </div>
                             </li>
                             <li>
-                                <a href="/#bacsi" dl-cuaso="bacsi">
+                                <div className={cx('item-options')} href="/#bacsi" dl-cuaso="bacsi">
                                     <span>
                                         <FormattedMessage id="home-header.doctor" />
                                     </span>
                                     <span className={cx('sub-title-options')}>
                                         <FormattedMessage id="home-header.select-doctor" />
                                     </span>
-                                </a>
+                                </div>
                             </li>
                             <li>
-                                <a href="/dich-vu-y-te/kham-tong-quat">
+                                <div className={cx('item-options')} href="/dich-vu-y-te/kham-tong-quat">
                                     <span>
                                         <FormattedMessage id="home-header.fee" />
                                     </span>
                                     <span className={cx('sub-title-options')}>
                                         <FormattedMessage id="home-header.check-health" />
                                     </span>
-                                </a>
+                                </div>
                             </li>
                         </ul>
                     </div>

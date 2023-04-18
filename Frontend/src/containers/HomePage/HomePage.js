@@ -5,6 +5,7 @@ import HomeHeader from './HomeHeader';
 import HomeSlider from './HomeSlider';
 import Section from './Section';
 import { Fragment } from 'react';
+import HomeFooter from './HomeFooter';
 class HomePage extends Component {
     render() {
         return (
@@ -12,6 +13,7 @@ class HomePage extends Component {
                 <HomeHeader />
                 <HomeSlider />
                 <Section />
+                <HomeFooter />
             </Fragment>
         );
     }

@@ -85,10 +85,10 @@ let getAllSpecialty = () => {
   });
 };
 
-let getDetailSpecialtyById = (inputId, mode) => {
+let getDetailSpecialtyById = (inputId, location) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!inputId) {
+      if (!inputId || !location) {
         resolve({
           errCode: 1,
           data: "Missing required parameter",
@@ -98,10 +98,39 @@ let getDetailSpecialtyById = (inputId, mode) => {
           where: {
             id: inputId,
           },
-          attributes: {
-            exclude: ["image", "createdAt", "updatedAt", "descriptionMarkdownVn", "descriptionMarkdownEn"],
-          },
+          attributes: ["nameVn", "nameEn", "descriptionHtmlVn", "descriptionHtmlEn", "image"],
+          raw: true,
         });
+        if (data) {
+          let doctorSpecialty;
+          if (location == "ALL") {
+            doctorSpecialty = await db.Doctor_infor.findAll({
+              where: {
+                specialtyId: inputId,
+              },
+              attributes: ["doctorId", "provinceId"],
+              include: [
+                {
+                  model: db.Allcode,
+                  as: "provinceTypeData",
+                  attributes: ["valueEn", "valueVi"],
+                },
+              ],
+              raw: true,
+              nest: true,
+            });
+          } else {
+            doctorSpecialty = await db.Doctor_infor.findAll({
+              where: {
+                specialtyId: inputId,
+                provinceId: location,
+              },
+              attributes: ["doctorId", "provinceId"],
+              raw: true,
+            });
+          }
+          data.doctorSpecialty = doctorSpecialty;
+        }
 
         if (!data) data = {};
         resolve({
@@ -110,6 +139,7 @@ let getDetailSpecialtyById = (inputId, mode) => {
         });
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });

@@ -26,6 +26,17 @@ let handleGetTopDoctorHome = (limitInput) => {
             as: "genderData",
             attributes: ["valueEn", "valueVi"],
           },
+          {
+            model: db.Doctor_infor,
+            attributes: ["id"],
+            include: [
+              {
+                model: db.Specialty,
+                as: "SpecialtyData",
+                attributes: ["nameVn", "nameEn"],
+              },
+            ],
+          },
         ],
         raw: true,
         nest: true,
@@ -68,76 +79,94 @@ let handlePostInforDoctor = (inputData) => {
           data: "Missing required parameter",
         });
       } else {
-        if (inputData.options === "CREATE") {
+        if (inputData.actions === "CREATE") {
           await db.Markdown.create({
             contentHTML: inputData.contentHTML,
             contentMarkdown: inputData.contentMarkdown,
             description: inputData.description,
             doctorId: inputData.doctorId,
           });
+          await db.Doctor_infor.create({
+            doctorId: inputData.doctorId,
+            priceId: inputData.selectedPrice,
+            provinceId: inputData.selectedProvince,
+            paymentId: inputData.selectedPayment,
+            clinicId: inputData.selectedClinic,
+            specialtyId: inputData.selectedSpecialty,
+            note: inputData.note,
+          });
           resolve({
             errCode: 0,
             data: "create infor detail doctor succeed",
           });
         }
-        if (inputData.options === "EDIT") {
-          let result = await db.Markdown.findOne({
+        if (inputData.actions === "EDIT") {
+          let resultMarkdown = await db.Markdown.findOne({
             where: {
               doctorId: inputData.doctorId,
             },
+            raw: false,
           });
-          if (result) {
-            result.contentHTML = inputData.contentHTML;
-            result.contentMarkdown = inputData.contentMarkdown;
-            result.description = inputData.description;
-            await result.save();
+          let resultDoctorInfor = await db.Doctor_infor.findOne({
+            where: {
+              doctorId: inputData.doctorId,
+            },
+            raw: false,
+          });
+          if (resultMarkdown) {
+            resultMarkdown.contentHTML = inputData.contentHTML;
+            resultMarkdown.contentMarkdown = inputData.contentMarkdown;
+            resultMarkdown.description = inputData.description;
+            await resultMarkdown.save();
             resolve({
               errCode: 0,
               message: `Update infor doctor succeeds`,
             });
           }
-        } else if (inputData.options === "CREATE") {
-          await db.Markdown.create({
-            contentHTML: inputData.contentHTML,
-            contentMarkdown: inputData.contentMarkdown,
-            description: inputData.description,
-            doctorId: inputData.doctorId,
-          });
-          resolve({
-            errCode: 0,
-            data: "create infor detail doctor succeed",
-          });
-        }
-        let doctorInfor = await db.Doctor_infor.findOne({
-          where: {
-            doctorId: inputData.doctorId,
-          },
-          raw: false,
-        });
-        if (doctorInfor) {
-          //Update
-          doctorInfor.priceId = inputData.selectedPrice;
-          doctorInfor.paymentId = inputData.selectedPayment;
-          doctorInfor.provinceId = inputData.selectedProvince;
-
-          doctorInfor.nameClinic = inputData.nameClinic;
-          doctorInfor.addressClinic = inputData.addressClinic;
-          doctorInfor.note = inputData.note;
-          await doctorInfor.save();
-        } else {
-          //create
-          await db.Doctor_infor.create({
-            doctorId: inputData.doctorId,
-            priceId: inputData.selectedPrice,
-            paymentId: inputData.selectedPayment,
-            provinceId: inputData.selectedProvince,
-            addressClinic: inputData.addressClinic,
-            nameClinic: inputData.nameClinic,
-            note: inputData.note,
-          });
+          if (resultDoctorInfor) {
+            resultDoctorInfor.priceId = inputData.selectedPrice;
+            resultDoctorInfor.provinceId = inputData.selectedProvince;
+            resultDoctorInfor.paymentId = inputData.selectedPayment;
+            resultDoctorInfor.clinicId = inputData.selectedClinic;
+            resultDoctorInfor.specialtyId = inputData.selectedSpecialty;
+            resultDoctorInfor.note = inputData.note;
+            await resultDoctorInfor.save();
+            resolve({
+              errCode: 0,
+              message: `Update infor doctor succeeds`,
+            });
+          }
+          if (!resultDoctorInfor) {
+            await db.Doctor_infor.create({
+              doctorId: inputData.doctorId,
+              priceId: inputData.selectedPrice,
+              provinceId: inputData.selectedProvince,
+              paymentId: inputData.selectedPayment,
+              clinicId: inputData.selectedClinic,
+              specialtyId: inputData.selectedSpecialty,
+              note: inputData.note,
+            });
+            resolve({
+              errCode: 0,
+              data: "create infor detail doctor succeed",
+            });
+          }
+          if (!resultMarkdown) {
+            await db.Markdown.create({
+              contentHTML: inputData.contentHTML,
+              contentMarkdown: inputData.contentMarkdown,
+              description: inputData.description,
+              doctorId: inputData.doctorId,
+            });
+            resolve({
+              errCode: 0,
+              data: "create infor detail doctor succeed",
+            });
+          }
         }
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -188,6 +217,21 @@ let getDetailDoctorById = (inputId) => {
                   model: db.Allcode,
                   as: "provinceTypeData",
                   attributes: ["valueEn", "valueVi"],
+                },
+                {
+                  model: db.Allcode,
+                  as: "provinceTypeData",
+                  attributes: ["valueEn", "valueVi"],
+                },
+                {
+                  model: db.Clinic,
+                  as: "ClinicData",
+                  attributes: ["name", "address"],
+                },
+                {
+                  model: db.Specialty,
+                  as: "SpecialtyData",
+                  attributes: ["nameVn", "nameEn"],
                 },
               ],
             },
@@ -346,6 +390,16 @@ let getExtraInforDoctorById = (idInput) => {
               model: db.Allcode,
               as: "provinceTypeData",
               attributes: ["valueEn", "valueVi"],
+            },
+            {
+              model: db.Clinic,
+              as: "ClinicData",
+              attributes: ["name", "address"],
+            },
+            {
+              model: db.Specialty,
+              as: "SpecialtyData",
+              attributes: ["nameVn", "nameEn"],
             },
           ],
           raw: false,

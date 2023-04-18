@@ -6,7 +6,7 @@ import { NumericFormat } from 'react-number-format';
 import moment from 'moment';
 import localization from 'moment/locale/vi';
 import _ from 'lodash';
-
+import { Link } from 'react-router-dom';
 import { getProfileDoctorById } from '~/services/doctorService';
 import style from './ProfileDoctor.module.scss';
 import { LANGUAGES } from '~/utils';
@@ -22,13 +22,21 @@ class ProfileDoctor extends Component {
     }
     async componentDidMount() {
         let data = await this.getInforDoctor(this.props.doctorId);
-        this.props.getPrice(this.state.dataProfile);
+        if (this.props.getPrice) {
+            this.props.getPrice(this.state.dataProfile);
+        }
         this.setState({
             dataProfile: data,
         });
     }
     async componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.language !== prevProps.language) {
+        }
+        if (this.props.doctorId !== prevProps.doctorId) {
+            let data = await this.getInforDoctor(this.props.doctorId);
+            this.setState({
+                dataProfile: data,
+            });
         }
     }
     getInforDoctor = async (id) => {
@@ -90,7 +98,7 @@ class ProfileDoctor extends Component {
     render() {
         let { dataProfile } = this.state;
 
-        let { language, isShowDescriptionDoctor } = this.props;
+        let { language, isShowDescriptionDoctor, isShowPrice, isShowBtnDetail } = this.props;
         let urlImgage = '';
         if (dataProfile && !_.isEmpty(dataProfile) && dataProfile.image) {
             urlImgage = dataProfile.image;
@@ -112,14 +120,15 @@ class ProfileDoctor extends Component {
                             {isShowDescriptionDoctor &&
                                 dataProfile &&
                                 dataProfile.Markdown &&
-                                dataProfile.Markdown.description && <span>{dataProfile.Markdown.description}</span>}
+                                dataProfile.Markdown.description && <pre>{dataProfile.Markdown.description}</pre>}
                         </div>
                         <span className={cx('schedule-time')}>{this.renderTimeBooking()}</span>
                     </div>
                 </div>
                 <div className={cx('content-dow')}>
-                    <span>
-                        <p>Giá khám: {this.renderPriceBooking()}</p>
+                    <span className={cx('show-price')}>{isShowPrice && <p>Giá khám: {this.renderPriceBooking()}</p>}</span>
+                    <span className={cx('btn-detail')}>
+                        {isShowBtnDetail && <Link to={`/detail-doctor/${this.props.doctorId}`}>Xem thêm</Link>}
                     </span>
                 </div>
             </div>

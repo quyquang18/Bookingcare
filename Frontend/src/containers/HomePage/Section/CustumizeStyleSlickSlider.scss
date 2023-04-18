@@ -52,7 +52,7 @@
     -o-user-select: none;
     user-select: none;
 
-    a {
+    .item {
         display: inline-block;
         position: relative;
         vertical-align: top !important;
@@ -61,6 +61,7 @@
         overflow: hidden;
         margin: 5px;
         text-decoration: none;
+        cursor: pointer;
         &.is-boder {
             text-align: center;
             border: 1px solid #eee;

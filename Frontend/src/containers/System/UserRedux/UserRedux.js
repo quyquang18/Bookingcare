@@ -32,9 +32,9 @@ class UserRedux extends Component {
             lastName: '',
             phoneNumber: '',
             address: '',
-            gender: '',
-            position: '',
-            role: '',
+            gender: 'M',
+            position: 'P0',
+            role: 'R3',
 
             action: CRUD_ACTIONS.CREATE,
         };
@@ -149,31 +149,14 @@ class UserRedux extends Component {
                         ...coppyState,
                     });
                     this.props.getAllUser();
-                    toast.success('Creater new user success!', {
-                        position: 'bottom-right',
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: 'colored',
-                    });
+                    toast.success('Creater new user success!');
                 }
                 if (this.props.responCreateUser.errCode !== 0) {
-                    toast.error(this.props.responCreateUser.message, {
-                        position: 'bottom-right',
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: 'colored',
-                    });
+                    toast.error(this.props.responCreateUser.message);
                 }
             }
             if (action === CRUD_ACTIONS.EDIT) {
+                console.log(this.state)
                 await this.props.eidtUser({
                     id: idUser,
                     firstName: firstName,
@@ -207,6 +190,7 @@ class UserRedux extends Component {
             position: user.positionId ||'P1',
             role: user.roleId ||'R1',
             previewImageUrl: imageBase64,
+            avatar:imageBase64,
             action: CRUD_ACTIONS.EDIT,
         });
     };
@@ -316,7 +300,7 @@ class UserRedux extends Component {
                                 onChange={(event) => {
                                     this.handleChangeInput(event, 'gender');
                                 }}
-                                value={gender || 'M'}
+                                value={gender}
                             >
                                 {arrGender.length > 0 &&
                                     arrGender.map((item, index) => (
@@ -400,10 +384,7 @@ class UserRedux extends Component {
                     </div>
                 </div>
                 {this.state.isOpen === true && (
-                    <Lightbox
-                        mainSrc={this.state.previewImageUrl}
-                        onCloseRequest={() => this.setState({ isOpen: false })}
-                    />
+                    <Lightbox mainSrc={this.state.previewImageUrl} onCloseRequest={() => this.setState({ isOpen: false })} />
                 )}
                 <TableUserManager handleEditUser={this.editUserFromParent} />
             </div>

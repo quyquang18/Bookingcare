@@ -10,7 +10,8 @@ import { getAllDoctor, updateInforDoctor, getTopDoctorHomeService } from '~/serv
 import { toast } from 'react-toastify';
 import { INFOR_DOCTOR } from '~/utils';
 import { getAllSpecialty } from '~/services/specialtyService';
-import { getAllClinic } from '~/services/ClinicService';
+import { getAllClinic, getTopClinic } from '~/services/ClinicService';
+import { getAllPromotion } from '~/services/promotionService';
 //Gender
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
@@ -197,7 +198,7 @@ export const getAllUserFailed = () => ({
 export const fetchTopDoctor = () => {
     return async (dispatch, getState) => {
         try {
-            let res = await getTopDoctorHomeService('10 ');
+            let res = await getTopDoctorHomeService('12');
             if (res && res.errCode === 0) {
                 dispatch({
                     type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
@@ -330,6 +331,60 @@ export const fetchAllClinic = (mode) => {
             console.log('FETCH_ALL_CLINIC_FAILED: ', error);
             dispatch({
                 type: actionTypes.FETCH_ALL_CLINIC_FAILED,
+            });
+        }
+    };
+};
+export const fetchTopClinic = (limit) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getTopClinic(limit);
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_TOP_CLINIC_SUCCESS,
+                    data: res.data,
+                });
+            }
+        } catch (error) {
+            console.log('FETCH_TOP_CLINIC_FAILED: ', error);
+            dispatch({
+                type: actionTypes.FETCH_TOP_CLINIC_FAILED,
+            });
+        }
+    };
+};
+export const fetchAllKeyPromotion = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService(INFOR_DOCTOR.PROMOTION);
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_PROMOTION_KEY_SUCCESS,
+                    data: res.data,
+                });
+            }
+        } catch (error) {
+            console.log('FETCH_PROMOTION_KEY_FAILED: ', error);
+            dispatch({
+                type: actionTypes.FETCH_PROMOTION_KEY_FAILED,
+            });
+        }
+    };
+};
+export const fetchListPromotion = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllPromotion();
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_ALL_PROMOTION_SUCCESS,
+                    data: res.data,
+                });
+            }
+        } catch (error) {
+            console.log('FETCH_ALL_PROMOTION_FAILED: ', error);
+            dispatch({
+                type: actionTypes.FETCH_ALL_PROMOTION_FAILED,
             });
         }
     };

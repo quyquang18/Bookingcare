@@ -11,16 +11,16 @@ class Clinic extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrClinic: [],
+            arrTopClinic: [],
         };
     }
     componentDidMount() {
-        this.props.fetchAllClinic('simple');
+        this.props.fetchTopClinic(19);
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.arrClinic !== this.props.arrClinic) {
+        if (prevProps.arrTopClinic !== this.props.arrTopClinic) {
             this.setState({
-                arrClinic: this.props.arrClinic,
+                arrTopClinic: this.props.arrTopClinic,
             });
         }
     }
@@ -36,14 +36,14 @@ class Clinic extends Component {
             slidesToScroll: 4,
             swipe: true,
         };
-        let { arrClinic } = this.state;
+        let { arrTopClinic } = this.state;
         return (
             <div className="section-wrapper">
                 <div className="section-clinic">
                     <div className="section-container">
                         <div className="section-header">
                             <span className="title-section">
-                                <FormattedMessage id="homepage.outstanding-doctor" />
+                                <FormattedMessage id="homepage.outstanding-clinic" />
                             </span>
                             <button className="btn-section">
                                 <FormattedMessage id="homepage.more-info" />
@@ -52,16 +52,20 @@ class Clinic extends Component {
                         <div className="section-body">
                             <div className="slider-clinic">
                                 <Slider {...settings}>
-                                    {arrClinic &&
-                                        arrClinic.length > 0 &&
-                                        arrClinic.map((item, index) => {
+                                    {arrTopClinic &&
+                                        arrTopClinic.length > 0 &&
+                                        arrTopClinic.map((item, index) => {
                                             let imageBase64 = '';
-                                            if (item.image) {
-                                                imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+                                            if (item.avatar) {
+                                                imageBase64 = new Buffer(item.avatar, 'base64').toString('binary');
                                             }
                                             return (
-                                                <div key={index} onClick={() => this.handleViewDetailDoctor(item)}>
-                                                    <a href="" key={index} style={{ width: '278px' }}>
+                                                <div
+                                                    className="item"
+                                                    key={index}
+                                                    onClick={() => this.handleViewDetailDoctor(item)}
+                                                >
+                                                    <div key={index} style={{ width: '278px' }}>
                                                         <div className="out-bg clinic">
                                                             <div
                                                                 className="image-item"
@@ -71,7 +75,7 @@ class Clinic extends Component {
                                                         <h3 className="name-clinic">
                                                             <span>{item.name}</span>
                                                         </h3>
-                                                    </a>
+                                                    </div>
                                                 </div>
                                             );
                                         })}
@@ -87,14 +91,14 @@ class Clinic extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        arrClinic: state.admin.arrClinic,
+        arrTopClinic: state.admin.arrTopClinic,
         language: state.app.language,
     };
 };
 
 const mapDispatchToProps = () => {
     return {
-        fetchAllClinic: (mode) => dispatch(actions.fetchAllClinic(mode)),
+        fetchTopClinic: (mode) => dispatch(actions.fetchTopClinic(mode)),
     };
 };
 

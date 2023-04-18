@@ -46,4 +46,5 @@ export const INFOR_DOCTOR = {
     NAME: 'NAME',
     SPECIALTY: 'SPECIALTY',
     CLINIC: 'CLINIC',
+    PROMOTION: 'PROMOTION',
 };

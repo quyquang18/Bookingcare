@@ -30,6 +30,8 @@
     },
     "homepage":{
         "outstanding-doctor":"Last week's featured doctor",
+        "outstanding-specialty":"Popular specialties",
+        "outstanding-clinic":"Outstanding medical facility",
         "more-info":"More"
     },
     "menu": {
@@ -45,7 +47,9 @@
             "specialty":"Specialty",
             "manage-specialty":"Specialty manage",
             "handbook":"Handbook",
-            "manage-handbook":"Handbook manage"
+            "manage-handbook":"Handbook manage",
+            "endow":"Endow",
+            "manage-endow":"Offer management"
         },
         "doctor":{
             "manage-schedule":"Manage doctor's schedule"
@@ -74,6 +78,39 @@
         "choose-doctor":"Choose a doctor",
         "choose-date":"Choose a date",
         "save-infor":"Save information"
+    },
+    "manage-clinic":{
+        "title":"Clinic Management",
+        "name-clinic":"Clinic name",
+        "avatar-clinic":"Clinic Avatar",
+        "cover-image-clinic":"Clinic cover image",
+        "create":"Create new",
+        "edit":"Edit",
+        "endow":"Endow",
+        "intro":"Introduce",
+        "strengths":"Professional strengths" ,
+        "location":"Location",
+        "process" :"Examination procedure" ,
+        "equiment":"Equipment",
+        "add":"Add new Clinic",
+        "save":"Save information"  
+      },
+      "manage-specialty":{
+        "title":"Specialized management",
+        "name-specialty-vn":"Professional name in Vietnamese",
+        "image-specialty-en":"English specialty name",
+        "image-specialty":"Professional photo",
+        "des-vn":"Professional description in Vietnamese",
+        "des-en":"Professional Description English",
+        "name":"Specialist name",
+        "image":"Image",
+        "actions":"Actions",
+        "previous":"Previous",
+        "next":"Next",
+        "add":"Add new professional",
+        "save":"Lưu thông tin chuyên khoa",
+        "create":"Create new",
+        "edit":"Edit"  
     },
     "patient":{
         "detail-doctor":{
@@ -120,6 +157,14 @@
             "province":"Province / City",
             "district":"Distric",
             "address":"Address"
+        },
+        "detail-clinic":{
+            "listDoctor":"Book an appointment",
+            "desIntroHtml":"Introduce",
+            "desStrengthsHtml":"Professional strengths",
+            "desEquipmentHtml":"Equipment",
+            "desAddressHtml":"Location",
+            "desProcedureHtml":"Examination procedure"
         }
     },
     "admin":{

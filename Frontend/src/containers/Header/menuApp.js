@@ -46,6 +46,16 @@ export const adminMenu = [
         ],
     },
     {
+        //quản lí Ưu đãi
+        name: 'menu.admin.endow',
+        menus: [
+            {
+                name: 'menu.admin.manage-endow',
+                link: '/system/offe-management',
+            },
+        ],
+    },
+    {
         //quản lí Cẩm nang
         name: 'menu.admin.handbook',
         menus: [

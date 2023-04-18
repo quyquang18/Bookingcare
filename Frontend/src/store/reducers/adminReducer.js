@@ -17,6 +17,9 @@ const initialState = {
     arrProvince: [],
     arrSpecialty: [],
     arrClinic: [],
+    arrTopClinic: [],
+    arrKeyPromotion: [],
+    listPromotion: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -163,6 +166,36 @@ const adminReducer = (state = initialState, action) => {
             };
         case actionTypes.FETCH_ALL_CLINIC_FAILED:
             state.arrClinic = [];
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_TOP_CLINIC_SUCCESS:
+            state.arrTopClinic = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_TOP_CLINIC_FAILED:
+            state.arrTopClinic = [];
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_PROMOTION_KEY_SUCCESS:
+            state.arrKeyPromotion = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_PROMOTION_KEY_FAILED:
+            state.arrKeyPromotion = [];
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_ALL_PROMOTION_SUCCESS:
+            state.listPromotion = action.data;
+            return {
+                ...state,
+            };
+        case actionTypes.FETCH_ALL_PROMOTION_FAILED:
+            state.listPromotion = [];
             return {
                 ...state,
             };

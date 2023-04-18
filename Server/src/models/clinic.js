@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model, INTEGER } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Clinic extends Model {
     /**
@@ -10,9 +8,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Clinic.hasOne(models.Doctor_infor, {
+        foreignKey: "clinicId",
+        as: "ClinicData",
+      });
     }
-  };
+  }
   Clinic.init(
     {
       name: DataTypes.STRING,
@@ -29,7 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       desAddressMarkdown: DataTypes.TEXT,
       desProcedureHtml: DataTypes.TEXT,
       desProcedureMarkdown: DataTypes.TEXT,
-      image: DataTypes.BLOB("long"),
+      avatar: DataTypes.BLOB("long"),
+      coverImage: DataTypes.BLOB("long"),
+      countBooking: DataTypes.INTEGER,
     },
     {
       sequelize,

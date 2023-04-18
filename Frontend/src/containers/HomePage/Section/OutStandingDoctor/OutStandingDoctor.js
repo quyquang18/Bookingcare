@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 // import styles from './Specialty.module.scss';
 import * as actions from '~/store/actions';
-import SliderSlick from '~/components/SliderSlick';
 import images from '~/assets/images';
 import { dispatch } from '~/redux';
 import { LANGUAGES } from '~/utils';
@@ -41,7 +40,6 @@ class OutStandingDoctor extends Component {
             swipe: true,
         };
         let { arrDoctor } = this.state;
-
         return (
             <div className="section-wrapper">
                 <div className="section-container">
@@ -67,7 +65,7 @@ class OutStandingDoctor extends Component {
                                         let valueEn = `${item.positionData.valueEn}, ${item.lastName} ${item.firstName}`;
                                         return (
                                             <div key={index} onClick={() => this.handleViewDetailDoctor(item)}>
-                                                <a href="" key={index} style={{ width: '278px' }} className="is-boder">
+                                                <div className="item is-boder" key={index} style={{ width: '278px' }}>
                                                     <div className="out-bg outstanding-doctor">
                                                         <div
                                                             className="image-item "
@@ -78,9 +76,15 @@ class OutStandingDoctor extends Component {
                                                         {this.props.language === LANGUAGES.VI ? valueVi : valueEn}
                                                     </h3>
                                                     <h4 className="specialty-doctor">
-                                                        <span>Da liễu</span>
+                                                        {item.Doctor_infor && item.Doctor_infor.id && (
+                                                            <span>
+                                                                {this.props.language === LANGUAGES.VI
+                                                                    ? item.Doctor_infor.SpecialtyData.nameVn
+                                                                    : item.Doctor_infor.SpecialtyData.nameEn}
+                                                            </span>
+                                                        )}
                                                     </h4>
-                                                </a>
+                                                </div>
                                             </div>
                                         );
                                     })}

@@ -6,7 +6,7 @@
     .header-content {
         height: 100%;
         display: flex;
-
+        
         .logo-menu {
             display: flex;
             height: 100%;
@@ -35,7 +35,7 @@
                 align-items: center;
 
                 li {
-                    a {
+                    .item-options {
                         display: flex;
                         flex-direction: column;
                         color: #333;

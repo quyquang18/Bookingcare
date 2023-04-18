@@ -1,8 +1,8 @@
 .intro-doctor {
     padding: 6px 30px;
     background: #fff;
-    border-bottom: 2px solid #eee;
-    background: #f6f6f6;
+    // border-bottom: 2px solid #eee;
+    // background: #f6f6f6;
     .content-up {
         display: flex;
         .image-doctor {
@@ -36,12 +36,22 @@
         }
     }
     .content-dow{
-        margin-top: 12px;
-        // border: 1px solid #f89008;
-        max-width: 220px;
-        p{
-            padding: 8px;
-            margin: 0;
+        .show-price{
+            margin-top: 12px;
+            // border: 1px solid #f89008;
+            max-width: 220px;
+            p{
+                padding: 8px;
+                margin: 0;
+            }
         }
+        .btn-detail{
+            color: #45c3d2;
+            cursor: pointer;
+            p{
+                padding-left: 12px;
+            }
+        }
+
     }
 }

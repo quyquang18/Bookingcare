@@ -6,8 +6,8 @@ const createNewSpecialty = (data) => {
 const getAllSpecialty = () => {
     return axios.get(`/api/get-all-speciaty`);
 };
-const getDetailSpecialtyById = (id) => {
-    return axios.get(`/api/get-detail-speciaty-by-id?id=${id}`);
+const getDetailSpecialtyById = (id, location) => {
+    return axios.get(`/api/get-detail-speciaty-by-id?id=${id}&location=${location}`);
 };
 const editInforSpecialty = (data) => {
     return axios.post(`/api/edit-infor-specialty`, data);

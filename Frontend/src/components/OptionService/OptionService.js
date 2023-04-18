@@ -14,7 +14,7 @@ class HomeSlider extends Component {
             <div className={cx('options-sevices-wrapper')}>
                 <ul>
                     <li>
-                        <a href="/#chuyenkhoa">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.clinicImage.default})` }}
@@ -23,10 +23,10 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title1" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a href="/#khamtuxa" dl-cuaso="khamtuxa">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.remoteExaminationImage.default})` }}
@@ -35,10 +35,10 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title2" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a href="/dich-vu-y-te/kham-tong-quat">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.generalExaminationImage.default})` }}
@@ -47,10 +47,10 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title3" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a href="/dich-vu-y-te/xet-nghiem-y-hoc">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.testingServiceImage.default})` }}
@@ -59,10 +59,10 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title4" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a href="/#khamtinhthan" dl-cuaso="khamtinhthan">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.mentalHealthmage.default})` }}
@@ -71,10 +71,10 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title5" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a href="/nha-khoa-s33">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.dentistryImage.default})` }}
@@ -83,10 +83,10 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title6" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a href="/#goiphauthuat" dl-cuaso="goiphauthuat">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.surgeryImage.default})` }}
@@ -95,10 +95,10 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title7" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a href="/san-pham-y-te-svis9">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.homeExaminationImage.default})` }}
@@ -107,10 +107,10 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title8" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                     <li>
-                        <a href="/suc-khoe-doanh-nghiep-sv10">
+                        <div className={cx('item-options')}>
                             <div
                                 className={cx('option-seriver')}
                                 style={{ backgroundImage: `url(${images.businessHealthImage.default})` }}
@@ -119,7 +119,7 @@ class HomeSlider extends Component {
                             <p>
                                 <FormattedMessage id="home-options-service.title9" />
                             </p>
-                        </a>
+                        </div>
                     </li>
                 </ul>
             </div>

@@ -12,7 +12,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import { toast } from 'react-toastify';
 import ReactPaginate from 'react-paginate';
 
-import { CommonUtils } from '~/utils';
+import { CommonUtils, LANGUAGES } from '~/utils';
 import { createNewSpecialty, editInforSpecialty, getDetailSpecialtyById } from '~/services/specialtyService';
 import * as actions from '~/store/actions';
 
@@ -161,6 +161,7 @@ class ManageSpecialty extends Component {
         if (res && res.errCode === 0) {
             toast.success('Update specialty succeed');
             this.resetState();
+            this.props.fetchAllSpecialty();
         } else {
             toast.error('Update specialty error');
         }
@@ -182,32 +183,39 @@ class ManageSpecialty extends Component {
         return imageBase64;
     };
     renderTable = () => {
-        let { isCreate, listSpecialty, currentPage } = this.state;
+        let { listSpecialty, currentPage } = this.state;
+        let { language } = this.props;
         const endOffset = currentPage + 10;
         const handlePageClick = (event) => {
             const newOffset = (event.selected * 10) % listSpecialty.length;
-            console.log(newOffset);
             this.setState({
                 currentPage: newOffset,
             });
         };
         let listSpecialtySlice = listSpecialty.slice(currentPage, endOffset);
+
         return (
             <div id="edit" className={cx('users-table', 'mt-4')}>
                 <table className={cx('table-user')}>
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>name</th>
-                            <th>Image</th>
-                            <th>Actions</th>
+                            <th>
+                                <FormattedMessage id="manage-specialty.name" />
+                            </th>
+                            <th>
+                                <FormattedMessage id="manage-specialty.image" />
+                            </th>
+                            <th>
+                                <FormattedMessage id="manage-specialty.actions" />
+                            </th>
                         </tr>
                         {listSpecialtySlice.length > 0 &&
                             listSpecialtySlice.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{item.id}</td>
-                                        <td>{item.nameVn}</td>
+                                        <td>{language === LANGUAGES.VI ? item.nameVn : item.nameEn}</td>
                                         <td>
                                             {
                                                 <div
@@ -236,16 +244,14 @@ class ManageSpecialty extends Component {
                     </tbody>
                 </table>
                 <ReactPaginate
-                    previousLabel={'previous'}
-                    nextLabel={'next'}
+                    previousLabel={<FormattedMessage id="manage-specialty.previous" />}
+                    nextLabel={<FormattedMessage id="manage-specialty.next" />}
                     breakLabel={'...'}
                     marginPagesDisplayed={2}
                     pageRangeDisplayed={10}
                     pageCount={Math.ceil(listSpecialty.length / 10)}
                     onPageChange={handlePageClick}
                     containerClassName={cx('pagination')}
-                    // previousClassName={cx('btn-previous')}
-                    // nextClassName={cx('btn-next')}
                     activeClassName={cx('active')}
                 />
             </div>
@@ -257,21 +263,22 @@ class ManageSpecialty extends Component {
         let listSpecialtySlice = listSpecialty.slice(currentPage, 10);
         return (
             <div id="header" className={cx('manage-specialty-container')}>
-                <h2 className="title">Quản lí chuyên khoa</h2>
+                <h2 className="title">
+                    <FormattedMessage id="manage-specialty.title" />
+                </h2>
                 <div className="container ">
                     <div className={cx('nav-options')}>
                         <span className={cx(isCreate ? 'active' : '')} onClick={() => this.handleClickTabCreate()}>
-                            Tạo mới
+                            <FormattedMessage id="manage-specialty.create" />
                         </span>
                         <span className={cx(isCreate ? '' : 'active')} onClick={() => this.handleClickTabEdit()}>
-                            Chỉnh sửa
+                            <FormattedMessage id="manage-specialty.edit" />
                         </span>
                     </div>
                     <div className="row mt-4 ">
                         <div className="col-4">
                             <label>
-                                {/* <FormattedMessage id="patient.booking-modal.phone" /> */}
-                                Tên chuyên khoa Tiếng Việt
+                                <FormattedMessage id="manage-specialty.name-specialty-vn" />
                             </label>
                             <input
                                 type="text"
@@ -282,8 +289,7 @@ class ManageSpecialty extends Component {
                         </div>
                         <div className="col-4">
                             <label>
-                                {/* <FormattedMessage id="patient.booking-modal.phone" /> */}
-                                Tên chuyên khoa Tiếng Anh
+                                <FormattedMessage id="manage-specialty.image-specialty-en" />
                             </label>
                             <input
                                 type="text"
@@ -293,7 +299,9 @@ class ManageSpecialty extends Component {
                             />
                         </div>
                         <div className="col-4">
-                            <label>Ảnh chuyên khoa</label>
+                            <label>
+                                <FormattedMessage id="manage-specialty.image-specialty" />
+                            </label>
                             <div className="d-flex flex-column-reverse">
                                 <input id="loadImage" type="file" hidden onChange={(e) => this.handleChangeImage(e)} />
                                 <label className={cx('load-image')} htmlFor="loadImage">
@@ -312,7 +320,9 @@ class ManageSpecialty extends Component {
                     </div>
                     <div className={cx('row')}>
                         <div className={cx('col-12', 'md-editor')}>
-                            <label>Mô tả chuyên khoa Tiếng Việt</label>
+                            <label>
+                                <FormattedMessage id="manage-specialty.des-vn" />
+                            </label>
                             <MdEditor
                                 style={{ height: '300px' }}
                                 renderHTML={(text) => mdParser.render(text)}
@@ -324,7 +334,9 @@ class ManageSpecialty extends Component {
 
                     <div className={cx('row')}>
                         <div className={cx('col-12', 'md-editor')}>
-                            <label>Mô tả chuyên khoa Tiếng Anh</label>
+                            <label>
+                                <FormattedMessage id="manage-specialty.des-en" />
+                            </label>
                             <MdEditor
                                 style={{ height: '300px' }}
                                 renderHTML={(text) => mdParser.render(text)}
@@ -338,11 +350,11 @@ class ManageSpecialty extends Component {
                 <div className={cx('btn-wrapper')}>
                     {isCreate ? (
                         <button className={cx('btn-save')} onClick={() => this.handleCreateSpecialty()}>
-                            Add New Specialty
+                            <FormattedMessage id="manage-specialty.add" />
                         </button>
                     ) : (
                         <button className={cx('btn-save')} onClick={() => this.handleSaveSpecialty()}>
-                            Save
+                            <FormattedMessage id="manage-specialty.save" />
                         </button>
                     )}
                 </div>

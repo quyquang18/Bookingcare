@@ -83,8 +83,9 @@
 .download-app {
     padding-top: 25px;
     margin-top: 15px;
-
-    a {
+    display: flex;
+    justify-content: center;
+    .item-dowload {
         margin-right: 12px;
         text-decoration: none;
     }
