@@ -76,6 +76,7 @@ let createNewClinic = (inputData) => {
         }
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });

@@ -23,8 +23,7 @@ import { postPatientBookAppointment } from '~/services/patientService';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(style);
-let getCurentDate = new Date();
-getCurentDate.setHours(0, 0, 0, 0);
+
 
 class BookingModal extends Component {
     constructor(props) {
@@ -34,7 +33,7 @@ class BookingModal extends Component {
             phoneNumber: '',
             address: '',
             reason: '',
-            birthday: '',
+            selectedBirthday: moment(new Date()).startOf('day').valueOf(),
             selectedGender: '',
             doctorId: '',
             email: '',
@@ -121,7 +120,7 @@ class BookingModal extends Component {
     };
     handleChangeDatePicker = (date) => {
         this.setState({
-            birthday: date[0],
+            selectedBirthday: date[0],
         });
     };
     handleSelectGender = (item) => {
@@ -130,7 +129,7 @@ class BookingModal extends Component {
         });
     };
     checkValidateInput = () => {
-        const checkArr = ['fullName', 'phoneNumber', 'birthday', 'email', 'selectedGender', 'address', 'reason'];
+        const checkArr = ['fullName', 'phoneNumber', 'selectedBirthday', 'email', 'selectedGender', 'address', 'reason'];
         let isValid = true;
         for (let i = 0; i < checkArr.length; i++) {
             if (!this.state[checkArr[i]]) {
@@ -145,7 +144,7 @@ class BookingModal extends Component {
         let valid = this.checkValidateInput();
         let timeString = this.buildTimeBooking(this.props.dataTime);
         let doctorName = this.buildDoctorName(this.props.dataTime.doctorData);
-        console.log(doctorName);
+
         if (valid) {
             let res = await postPatientBookAppointment({
                 fullName: this.state.fullName,
@@ -160,6 +159,7 @@ class BookingModal extends Component {
                 language: this.props.language,
                 timeString: timeString,
                 doctorName: doctorName,
+                birthday: moment(new Date(this.state.selectedBirthday)).startOf('day').valueOf(),
             });
             if (res && res.errCode === 0) {
                 toast.success('Booking a new apointment succeed!');
@@ -288,9 +288,9 @@ class BookingModal extends Component {
                                             <DatePicker
                                                 className={cx('form-control min-height-38')}
                                                 onChange={this.handleChangeDatePicker}
-                                                maxDate={getCurentDate}
-                                                defaulevalue={this.state.selectedDate}
-                                                value={this.state.selectedDate}
+                                                maxDate={moment(new Date()).startOf('day').valueOf()}
+                                                defaulevalue={this.state.selectedBirthday}
+                                                value={this.state.selectedBirthday}
                                             />
                                         </div>
                                     </div>

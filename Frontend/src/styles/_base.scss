@@ -62,3 +62,6 @@ html *::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: rgba(22, 24, 35, 0.3);
 }
+div._loading_overlay_wrapper {
+  position: unset;
+  }

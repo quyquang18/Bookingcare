@@ -22,5 +22,6 @@ const images = {
     slider11: require('~/assets/images/161143-nam-hoc-viet-bi.png'),
     // anhdep: require('~/assets/images/anhdep.jpg'),
     anhJerry: require('~/assets/images/jerry.png'),
+    imageNotFound: require('~/assets/images/image-not-found.jpg'),
 };
 export default images;

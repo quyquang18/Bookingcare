@@ -251,6 +251,7 @@ class ManageClinic extends Component {
             coverImage,
             clinicId,
         } = this.state;
+        this.props.setStatusLoading(true);
         let res = await createNewClinic({
             name,
             address,
@@ -273,11 +274,13 @@ class ManageClinic extends Component {
         });
 
         if (res && res.errCode === 0) {
+            this.props.setStatusLoading(false);
             toast.success(res.message);
             if (actions === CRUD_ACTIONS.CREATE) {
                 this.resetState();
             }
         } else {
+            this.props.setStatusLoading(false);
             toast.error(res.message);
         }
     };
@@ -479,6 +482,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllClinic: (mode) => dispatch(actions.fetchAllClinic(mode)),
+        setStatusLoading: (status) => dispatch(actions.changeStatusReactLoading(status)),
     };
 };
 

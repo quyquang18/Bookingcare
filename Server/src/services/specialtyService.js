@@ -25,6 +25,7 @@ let createNewSpecialty = (data) => {
         });
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -65,6 +66,7 @@ let editInforSpecialty = (data) => {
         }
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -80,6 +82,7 @@ let getAllSpecialty = () => {
         data: data,
       });
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });

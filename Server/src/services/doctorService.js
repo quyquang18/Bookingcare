@@ -1,8 +1,7 @@
-import _ from "lodash";
-
 import db from "../models/index";
-
+import _, { reject } from "lodash";
 require("dotenv").config();
+import emailService from "./emailService";
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
 let handleGetTopDoctorHome = (limitInput) => {
@@ -46,6 +45,7 @@ let handleGetTopDoctorHome = (limitInput) => {
         data: users,
       });
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -65,6 +65,7 @@ let handleGetAllDoctor = () => {
         data: doctors,
       });
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -249,6 +250,7 @@ let getDetailDoctorById = (inputId) => {
         });
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -279,6 +281,7 @@ let getMarkdownDoctorById = (inputId) => {
         });
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -308,6 +311,10 @@ let bulkCreateSchedule = (inputData) => {
         if (toCreate && toCreate.length > 0) {
           await db.Schedule.bulkCreate(toCreate);
         }
+        resolve({
+          errCode: 0,
+          data: "Done",
+        });
       } else {
         resolve({
           errCode: 1,
@@ -315,6 +322,7 @@ let bulkCreateSchedule = (inputData) => {
         });
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -355,6 +363,7 @@ let getScheduleByDate = (doctorId, date) => {
         });
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -479,6 +488,153 @@ let getProfileDoctorById = (idInput) => {
         });
       }
     } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+let getListPatientForDoctor = (idDoctor, date) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!idDoctor || !date) {
+        resolve({
+          errCode: 1,
+          data: "Missing required parameter",
+        });
+      } else {
+        let data = await db.Booking.findAll({
+          where: {
+            statusId: ["S2", "S3", "S4", "S5"],
+            doctorId: idDoctor,
+            date: date,
+          },
+          include: [
+            {
+              model: db.Allcode,
+              as: "timeTypeDataPatient",
+              attributes: ["valueVi", "valueEn"],
+            },
+            {
+              model: db.Allcode,
+              as: "statusData",
+              attributes: ["valueVi", "valueEn"],
+            },
+            {
+              model: db.User,
+              attributes: ["firstName", "LastName"],
+            },
+            {
+              model: db.User,
+              as: "patientData",
+              attributes: ["email", "firstName", "lastName", "address", "gender", "phoneNumber"],
+              include: [
+                {
+                  model: db.Allcode,
+                  as: "genderData",
+                  attributes: ["valueVi", "valueEn"],
+                },
+              ],
+            },
+          ],
+          raw: false,
+          nest: true,
+        });
+        resolve({
+          errCode: 0,
+          data: data,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+let doctorConfirmSchedule = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.email || !data.name || !data.phoneNumber || !data.actions || !data.timeType || !data.patientId) {
+        resolve({
+          errCode: 1,
+          data: "Missing required parameter",
+        });
+      } else {
+        if (data.actions === "Confirm") {
+          if (!data.noteToPatient) {
+            resolve({
+              errCode: 1,
+              data: "Missing required parameter",
+            });
+          } else {
+            await emailService.sendEmailConfirmSuccess({
+              receiverEmail: data.email,
+              patientName: data.name,
+              gender: data.gender,
+              time: data.timeType,
+              doctorName: data.doctorName,
+              address: data.address,
+              phoneNumber: data.phoneNumber,
+              reason: data.reason,
+              noteToPatient: data.noteToPatient,
+            });
+            let patient = await db.Booking.findOne({
+              where: { patientId: data.patientId },
+              raw: false,
+            });
+            if (patient) {
+              patient.statusId = "S3";
+              patient.save();
+            }
+            resolve({
+              errCode: 0,
+              data: "succeed",
+            });
+          }
+        }
+        if (data.actions === "Refuse") {
+          if (!data.noteToPatient) {
+            resolve({
+              errCode: 1,
+              data: "Missing required parameter",
+            });
+          } else {
+            await emailService.sendEmailRefuse({
+              receiverEmail: data.email,
+              patientName: data.name,
+              time: data.timeType,
+              reason: data.reason,
+              doctorName: data.doctorName,
+              noteToPatient: data.noteToPatient,
+            });
+            let patient = await db.Booking.findOne({
+              where: { patientId: data.patientId },
+              raw: false,
+            });
+            if (patient) {
+              patient.statusId = "S5";
+              patient.save();
+            }
+            resolve({
+              errCode: 0,
+              data: "succeed",
+            });
+          }
+        }
+        if (data.actions === "Export") {
+          await emailService.sendEmailAtachment({
+            receiverEmail: data.email,
+            patientName: data.name,
+            patientId: data.patientId,
+            imageBase64: data.imageBase64,
+          });
+          resolve({
+            errCode: 0,
+            data: "succeed",
+          });
+        }
+      }
+    } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -493,4 +649,6 @@ module.exports = {
   getScheduleByDate: getScheduleByDate,
   getExtraInforDoctorById: getExtraInforDoctorById,
   getProfileDoctorById: getProfileDoctorById,
+  getListPatientForDoctor: getListPatientForDoctor,
+  doctorConfirmSchedule: doctorConfirmSchedule,
 };

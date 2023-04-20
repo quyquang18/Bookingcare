@@ -52,7 +52,8 @@
             "manage-endow":"Offer management"
         },
         "doctor":{
-            "manage-schedule":"Manage doctor's schedule"
+            "manage-schedule":"Manage doctor's schedule",
+            "manage-patient":"Manage doctor's patient"
         }
     },
     "manage-user":{
@@ -111,6 +112,10 @@
         "save":"Lưu thông tin chuyên khoa",
         "create":"Create new",
         "edit":"Edit"  
+    },
+    "manage-patient":{
+        "title":"Patient management",
+        "choose-date":"Choose a date of examination"
     },
     "patient":{
         "detail-doctor":{

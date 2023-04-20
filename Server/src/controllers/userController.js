@@ -1,56 +1,56 @@
 import userServices from '../services/userService'
 
-let handleLogin = async(req,res) =>{
-    let email = req.body.email
-    let password = req.body.password
-    if(!email && !password) {
-        return res.status(500).json({
-            errCode:1,
-            message: "Missing inputs parameter"
-        })
-    }
-    else {
-        let userData = await userServices.handleUserLogin(email,password);
-        return res.status(200).json({
-            errCode:userData.errCode,
-            message: userData.message,
-            user: userData.user ?userData.user :{}
-        })
-    }
-}
-let handleGetAllUsers = async(req,res) =>{
-    let id = req.query.type
-    if(!id) {
-        return res.status(500).json({
-            errCode:1,
-            message: "Missing required parameter",
-            user: []
-        })
-    }
-    let users = await userServices.getAllUsers(id);
+let handleLogin = async (req, res) => {
+  let email = req.body.email;
+  let password = req.body.password;
+  if (!email && !password) {
+    return res.status(500).json({
+      errCode: 1,
+      message: "Missing inputs parameter",
+    });
+  } else {
+    let optionsCookie = { httpOnly: false, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000 };
+    let userData = await userServices.handleUserLogin(email, password);
+    res.cookie("user_role", userData.refreshToken, optionsCookie, { domain: "http://localhost:3000" });
     return res.status(200).json({
-        errCode:0,
-        message: "OK",
-        user: users
-    })
-}
-let handleCreateNewUser =async (req,res)=>{
-    let message= await userServices.createNewUser(req.body);
-    return res.status(200).json(message)
-}
-let handleDeleteUser = async (req,res)=>{
-    if(!req.body.id){
-        return res.status(500).json({
-            errCode:1,
-            message: "Missing required parameters",
-        })
-    }
-    let message= await userServices.deleteUser(req.body.id);
-    return res.status(200).json(message)
-}
+      errCode: userData.errCode,
+      message: userData.message,
+      user: userData.user ? userData.user : {},
+    });
+  }
+};
+let handleGetAllUsers = async (req, res) => {
+  let id = req.query.type;
+  if (!id) {
+    return res.status(500).json({
+      errCode: 1,
+      message: "Missing required parameter",
+      user: [],
+    });
+  }
+  let users = await userServices.getAllUsers(id);
+  return res.status(200).json({
+    errCode: 0,
+    message: "OK",
+    user: users,
+  });
+};
+let handleCreateNewUser = async (req, res) => {
+  let message = await userServices.createNewUser(req.body);
+  return res.status(200).json(message);
+};
+let handleDeleteUser = async (req, res) => {
+  if (!req.body.id) {
+    return res.status(500).json({
+      errCode: 1,
+      message: "Missing required parameters",
+    });
+  }
+  let message = await userServices.deleteUser(req.body.id);
+  return res.status(200).json(message);
+};
 let handleEditUser = async (req, res) => {
   let data = req.body;
-  console.log(data.id);
   if (!data.id) {
     return res.status(500).json({
       errCode: 1,
@@ -62,7 +62,6 @@ let handleEditUser = async (req, res) => {
 };
 let handeGetAllCode = async (req, res) => {
   try {
-    console.log(req.query.type);
     let message = await userServices.getAllCodeService(req.query.type);
     return res.status(200).json(message);
   } catch (error) {
@@ -81,7 +80,6 @@ let handleVerifyEmail = async (req, res) => {
 let handleGetValueSensor = async (req, res) => {
   let type = req.params.type;
   let value = req.params.value;
-  console.log(type, value);
   if (!type && !value) {
     return res.status(500).json({
       errCode: 1,

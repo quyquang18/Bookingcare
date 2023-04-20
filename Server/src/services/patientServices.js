@@ -6,15 +6,25 @@ require("dotenv").config();
 let postBookAppointment = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.email || !data.doctorId || !data.date || !data.timeType || !data.fullName) {
+      if (
+        !data.email ||
+        !data.doctorId ||
+        !data.date ||
+        !data.timeType ||
+        !data.fullName ||
+        !data.gender ||
+        !data.address ||
+        !data.phoneNumber ||
+        !data.reason ||
+        !data.birthday
+      ) {
         resolve({
           errCode: 1,
           data: "Missing required parameter",
         });
       } else {
         let token = uuidv4();
-        let urlEmail = `${process.env.BASE_URL}/verify-booking?id=${data.doctorId}&token=${token}`;
-        console.log(urlEmail);
+        let urlEmail = `${process.env.BASE_URL}/patient/${data.doctorId}/verify-booking/${token}`;
 
         await emailService.sendSimpleEmail({
           receiverEmail: data.email,
@@ -33,6 +43,10 @@ let postBookAppointment = (data) => {
           defaults: {
             email: data.email,
             roleId: "R3",
+            gender: data.gender,
+            address: data.address,
+            phonenumber: data.phoneNumber,
+            firstName: data.fullName,
           },
           raw: true,
         });
@@ -47,6 +61,8 @@ let postBookAppointment = (data) => {
               date: data.date,
               timeType: data.timeType,
               token: token,
+              reason: data.reason,
+              birthday: data.birthday,
             },
           });
         }
@@ -56,6 +72,7 @@ let postBookAppointment = (data) => {
         });
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -63,7 +80,6 @@ let postBookAppointment = (data) => {
 let postVerifyBookAppointment = (inputId, inputToken) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(inputId, inputToken);
       if (!inputId || !inputToken) {
         resolve({
           errCode: 1,
@@ -78,7 +94,6 @@ let postVerifyBookAppointment = (inputId, inputToken) => {
           },
           raw: false,
         });
-        console.log(appointment);
         if (appointment) {
           appointment.statusId = "S2";
           await appointment.save();
@@ -94,6 +109,7 @@ let postVerifyBookAppointment = (inputId, inputToken) => {
         }
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });

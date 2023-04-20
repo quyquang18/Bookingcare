@@ -12,3 +12,7 @@ export const changeLanguage = (language) => ({
     type: actionTypes.CHANGE_LANGUAGE,
     language: language,
 });
+export const changeStatusReactLoading = (isShowReactLoading) => ({
+    type: actionTypes.CHANGE_STATUS_REACT_LOADING,
+    isShowReactLoading: isShowReactLoading,
+});

@@ -79,7 +79,7 @@ let getHtmlBodyEmail = (dataSend) => {
   }
   return result;
 };
-let sendEmailWarning = async (dataSend) => {
+let sendEmailConfirmSuccess = async (dataSend) => {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -97,25 +97,117 @@ let sendEmailWarning = async (dataSend) => {
   let info = await transporter.sendMail({
     from: '"Noname 👻" <noreply@example.com>', // sender address
     to: dataSend.receiverEmail, // list of receivers
-    // subject: `Warning ${dataSend.type} !`, // Subject line
+    subject: "Đặt lịch khám bệnh thành công ✔", // Subject line
     html: `
-      <div style="background-color:#eeebeb;padding:2px 22px 32px">
-      <h3 style="font-size:32px;font-weight:600;color:#000;text-align:center">Hello ${dataSend.fullName}</h3>
-      <p style="font-size:20px;text-align:left;padding:0 75px">Warning system </p>
-      <div>
-        <br> <strong>Thông tin chi tiết:</strong>
-        <br>Day-Month-Year : ${dataSend.date}
-        <br>Time : ${dataSend.time}
-        <br>${dataSend.type} : ${dataSend.value}<br>
-      </div>
-      <br>
-      <br>
-      <div>Please check the devices again</div>
-      <div style="margin:22px 0">Thank you very much.</div>
-      </div>
-      </div> `, // html body
+    <div style="background-color:#eeebeb;padding:2px 22px 32px">
+    <h3 style="font-size:32px;font-weight:600;color:#000;text-align:center">Xin chào ${dataSend.patientName}</h3>
+    <p style="font-size:20px;text-align:left;padding:0 20px">Bạn đã được bác sĩ xác nhận lịch đặt khám </p>
+    <div>
+      <br> <strong>Thông tin cá nhân:</strong>
+      <br>Họ và tên: ${dataSend.patientName}
+      <br>Giới tính: ${dataSend.gender}
+      <br>Địa chỉ: ${dataSend.address}
+      <br>Số điện thoại : ${dataSend.phoneNumber}<br>
+    </div>
+    <div>
+      <br> <strong>Thông tin đặt lịch khám bệnh:</strong>
+      <br>Thời gian : ${dataSend.time}
+      <br>Lí do khám : ${dataSend.reason}
+      <br>Bác sĩ : ${dataSend.doctorName}<br>
+    </div>
+    <div>
+      <br> <strong>Lưu ý của bác sĩ:</strong>
+      <br> ${dataSend.noteToPatient}
+    </div>
+    </div>
+    <div>Nếu bạn không phải bạn vui lòng bỏ qua Email này</div>
+    <div style="margin:22px 0">Xin trân trọng cảm ơn.</div>
+    
+    </div>
+    `, // html body
   });
 };
+let sendEmailRefuse = async (dataSend) => {
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: process.env.EMAIL_APP, // generated ethereal user
+      pass: process.env.EMAIL_APP_PASSWORD, // generated ethereal password
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"Noname 👻" <noreply@example.com>', // sender address
+    to: dataSend.receiverEmail, // list of receivers
+    subject: "Đặt lịch khám bệnh thất bại ✔", // Subject line
+    html: `
+    <div style="background-color:#eeebeb;padding:2px 22px 32px">
+    <h3 style="font-size:32px;font-weight:600;color:#000;text-align:center">Xin chào ${dataSend.patientName}</h3>
+    <p style="font-size:20px;text-align:left;padding:0 20px">Việc đặt lịch khám bệnh của bạn đã bị từ chối </p>
+    <div>
+      <br> <strong>Thông tin đặt lịch khám bệnh:</strong>
+      <br>Thời gian : ${dataSend.time}
+      <br>Lí do khám : ${dataSend.reason}
+      <br>Bác sĩ : ${dataSend.doctorName}<br>
+    </div>
+    <div>
+      <br> <strong>Lí do:</strong>
+      <br> ${dataSend.noteToPatient}
+    </div>
+    </div>
+    <div>Nếu bạn không phải bạn vui lòng bỏ qua Email này</div>
+    <div style="margin:22px 0">Xin trân trọng cảm ơn.</div>
+    
+    </div>
+    `, // html body
+  });
+};
+let sendEmailAtachment = async (dataSend) => {
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: process.env.EMAIL_APP, // generated ethereal user
+      pass: process.env.EMAIL_APP_PASSWORD, // generated ethereal password
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"Noname 👻" <noreply@example.com>', // sender address
+    to: dataSend.receiverEmail, // list of receivers
+    subject: "Hóa đơn khám bệnh ", // Subject line
+    attachments: {
+      // encoded string as an attachment
+      filename: `Remedy-${dataSend.patientId}-${new Date().getTime()}.png`,
+      content: dataSend.imageBase64.split("base64,")[1],
+      encoding: "base64",
+    },
+    html: `
+    <div style="background-color:#eeebeb;padding:2px 22px 32px">
+    <h3 style="font-size:32px;font-weight:600;color:#000;text-align:center">Xin chào ${dataSend.patientName}</h3>
+    <p style="font-size:20px;text-align:left;padding:0 20px">Chúng tôi xin gửi bạn hóa đơn khám bệnh trong file đính kèm</p>
+    </div>
+    <div style="margin:22px 0">Xin trân trọng cảm ơn.</div>
+    
+    </div>
+    `, // html body
+  });
+};
+
 module.exports = {
   sendSimpleEmail: sendSimpleEmail,
+  sendEmailConfirmSuccess: sendEmailConfirmSuccess,
+  sendEmailRefuse: sendEmailRefuse,
+  sendEmailAtachment: sendEmailAtachment,
 };

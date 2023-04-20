@@ -46,6 +46,7 @@ class ManageDoctor extends Component {
         this.props.fetchRequiredDoctorInfor();
         this.props.fetchAllSpecialty();
         this.props.fetchAllClinic('simple');
+        console.log('didmount');
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.language !== this.props.language) {
@@ -287,9 +288,10 @@ class ManageDoctor extends Component {
                 }
                 object.label = this.props.language === LANGUAGES.VI ? valueVI : valueEN;
                 result.push(object);
+                return true;
             });
+            return result;
         }
-        return result;
     };
     render() {
         let { listDoctor, listPrice, listPayment, listProvince, actions, contentMarkdown, description, listSpecialty } =
@@ -439,6 +441,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchRequiredDoctorInfor: () => dispatch(actions.fetchRequiredDoctorInfor()),
         fetchAllSpecialty: () => dispatch(actions.fetchAllSpecialty()),
         fetchAllClinic: (mode) => dispatch(actions.fetchAllClinic(mode)),
+        setStatusLoading: (status) => dispatch(actions.changeStatusReactLoading(status)),
     };
 };
 

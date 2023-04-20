@@ -54,7 +54,7 @@ class VerifyEmail extends Component {
                         ) : (
                             <div className={cx('sub-content')}>
                                 <h4>Ui, chưa xác nhận đặt lịch khám được rồi !</h4>
-                                <p>Link đặt lại mật khẩu đã hết hạn. Bạn vui lòng thử lại nhé</p>
+                                <p>Bạn đã xác nhận hoặc link xác nhận đã hết hạn. Bạn vui lòng thử lại nhé</p>
                                 <ImSad className={cx('icon')} />
                             </div>
                         )}

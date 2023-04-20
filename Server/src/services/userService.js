@@ -1,116 +1,117 @@
 import db from '../models/index'
-import bcrypt from 'bcryptjs'
+import jwt from "jsonwebtoken";
+require("dotenv").config();
+import bcrypt from "bcryptjs";
 const crypto = require("crypto");
 const { Sequelize, Op } = require("sequelize");
-import emailService from './emailService'
+import emailService from "./emailService";
 const salt = bcrypt.genSaltSync(10);
 
-let handleUserLogin =(email,password)=>{
-    return new Promise(async(resolve,reject)=>{
-        try {
-            let userData ={};
-            let isExist = await checkUserEmail(email);
-            if(isExist){
-                let user =await db.User.findOne({
-                    where:{email:email},
-                    raw :true,
-                });
-                if(user){
-                   let checkPass = await bcrypt.compareSync(password,user.password)
-                   if(checkPass){
-                    console.log(user)
-                    // if(!user.verifed){
-                    //     userData.errCode=4;
-                    //     userData.message='Your account has not been verified. Please verify your account to continue'
-                    // }else {
-                        userData.errCode=0;
-                        userData.message='Ok';
-                        delete user.password;
-                        userData.user =user;
-                    // }
-                   }
-                   else {
-                    userData.errCode=3;
-                    userData.message='Wrong password'
-                   }
-                } else
-                {
-                    userData.errCode =2;
-                    userData.message =`User's not found~`
-                }
-
-            }else {
-                userData.errCode =1;
-                userData.message = `Your's Email isn't exist in your system. Plz try other Email!`
-            }
-            resolve(userData)
-        } catch (error) {
-            reject(error)
+let handleUserLogin = (email, password) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let userData = {};
+      let isExist = await checkUserEmail(email);
+      if (isExist) {
+        let user = await db.User.findOne({
+          attributes: ["id", "email", "password", "firstName", "lastName", "roleId"],
+          where: { email: email },
+          raw: true,
+        });
+        if (user) {
+          let checkPass = await bcrypt.compareSync(password, user.password);
+          if (checkPass) {
+            // create JWTs
+            let accessToken = jwt.sign({ userId: user.id, role: user.roleId }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30s" });
+            let refreshToken = jwt.sign({ userId: user.id, role: user.roleId }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1d" });
+            userData.errCode = 0;
+            userData.message = "Ok";
+            delete user.password;
+            userData.user = user;
+            userData.accessToken = accessToken;
+            userData.refreshToken = refreshToken;
+            // }
+          } else {
+            userData.errCode = 3;
+            userData.message = "Wrong password";
+          }
+        } else {
+          userData.errCode = 2;
+          userData.message = `User's not found~`;
         }
-    })
-}
-let hashUserPassword =(password)=>{
-    return new Promise(async(resolve,reject)=>{
-        try {
-            let hashPassword = await bcrypt.hashSync(password,salt);
-            resolve(hashPassword);
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
-let checkUserEmail = (userEmail)=>{
-    return new Promise(async(resolve,reject)=>{
-        try {
-            let user =await db.User.findOne({
-                where:{email:userEmail}
-            })
-            if(user) {
-                resolve(true)
-            }else {
-                resolve(false)
-            }
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
-let getAllUsers =(userId) =>{
-    return new Promise(async(resolve,reject)=>{
-        try {
-            let users ='';
-            if (userId==='ALL'){
-                users =await db.User.findAll({
-                    attributes: {
-                        exclude:['password','R1']
-                    }
-                })
-            }
-            if(userId && userId !=='ALL') {
-                users =await db.User.findOne({
-                    where:{id:userId},
-                    attributes: {
-                        exclude:['password']
-                    }
-                })
-            }
-            resolve(users)
-
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
+      } else {
+        userData.errCode = 1;
+        userData.message = `Your's Email isn't exist in your system. Plz try other Email!`;
+      }
+      resolve(userData);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+let hashUserPassword = (password) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let hashPassword = await bcrypt.hashSync(password, salt);
+      resolve(hashPassword);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+let checkUserEmail = (userEmail) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { email: userEmail },
+      });
+      if (user) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
+let getAllUsers = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let users = "";
+      if (userId === "ALL") {
+        users = await db.User.findAll({
+          attributes: {
+            exclude: ["password", "R1"],
+          },
+        });
+      }
+      if (userId && userId !== "ALL") {
+        users = await db.User.findOne({
+          where: { id: userId },
+          attributes: {
+            exclude: ["password"],
+          },
+        });
+      }
+      resolve(users);
+    } catch (error) {
+      console.log(error);
+      reject(error);
+    }
+  });
+};
 let createNewUser = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(data);
       let checkEmail = await checkUserEmail(data.email);
       if (checkEmail) {
         resolve({
           errCode: 1,
-          message:
-            "Email already exists in the system. Please try another email",
+          message: "Email already exists in the system. Please try another email",
         });
       } else {
         let hashPasswordFromBcrypt = await hashUserPassword(data.password);
@@ -167,6 +168,7 @@ let deleteUser = (userId) => {
         message: `The user is deleted`,
       });
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -201,6 +203,7 @@ let updateUser = (data) => {
         });
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -208,7 +211,6 @@ let updateUser = (data) => {
 let getAllCodeService = (typeInput) => {
   return new Promise(async (resolve, reject) => {
     try {
-      console.log(typeInput);
       if (!typeInput) {
         resolve({
           errCode: 1,
@@ -224,6 +226,7 @@ let getAllCodeService = (typeInput) => {
         resolve(res);
       }
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });
@@ -267,6 +270,7 @@ let verifyEmail = (inputId, inputToken) => {
         message: `Email verified successfully`,
       });
     } catch (error) {
+      console.log(error);
       reject(error);
     }
   });

@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import classNames from 'classnames/bind';
 import * as actions from '../../../store/actions';
-import { KeyCodeUtils, LanguageUtils } from '../../../utils';
+import { KeyCodeUtils } from '../../../utils';
 import { BsFacebook, BsGoogle, BsTwitter, BsEyeSlashFill, BsEyeFill } from 'react-icons/bs';
-// import userIcon from '~/assets/images/user.svg';
-// import passIcon from '~/assets/images/pass.svg';
 import styles from './Login.module.scss';
-// import { FormattedMessage } from 'react-intl';
 import { handleLoginApi } from '~/services/userService';
 
 const cx = classNames.bind(styles);
@@ -59,18 +56,22 @@ class Login extends Component {
         }
     };
     handleLogin = async () => {
-        const { userLoginSuccess, userLoginFail } = this.props;
+        const { userLoginSuccess } = this.props;
         this.setState({
             errMessage: '',
         });
         try {
+            this.props.setStatusLoading(true);
             let data = await handleLoginApi(this.state.username, this.state.password);
+            console.log(data);
             if (data && data.errCode !== 0) {
+                this.props.setStatusLoading(false);
                 this.setState({
                     errMessage: data.message,
                 });
             }
             if (data && data.errCode === 0) {
+                this.props.setStatusLoading(false);
                 userLoginSuccess(data.user);
             }
         } catch (error) {
@@ -171,6 +172,7 @@ const mapDispatchToProps = (dispatch) => {
         navigate: (path) => dispatch(push(path)),
         // userLoginFail: () => dispatch(actions.userLoginFail()),
         userLoginSuccess: (userInfor) => dispatch(actions.userLoginSuccess(userInfor)),
+        setStatusLoading: (status) => dispatch(actions.changeStatusReactLoading(status)),
     };
 };
 

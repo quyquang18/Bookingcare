@@ -102,20 +102,8 @@ class UserRedux extends Component {
 
     async handleSaveUser() {
         let isValid = this.checkValidateInput();
-        let {
-            idUser,
-            email,
-            firstName,
-            lastName,
-            address,
-            gender,
-            password,
-            phoneNumber,
-            role,
-            position,
-            avatar,
-            action,
-        } = this.state;
+        let { idUser, email, firstName, lastName, address, gender, password, phoneNumber, role, position, avatar, action } =
+            this.state;
         if (isValid) {
             if (action === CRUD_ACTIONS.CREATE) {
                 await this.props.createNewUser({
@@ -156,7 +144,6 @@ class UserRedux extends Component {
                 }
             }
             if (action === CRUD_ACTIONS.EDIT) {
-                console.log(this.state)
                 await this.props.eidtUser({
                     id: idUser,
                     firstName: firstName,
@@ -186,11 +173,11 @@ class UserRedux extends Component {
             lastName: user.lastName,
             phoneNumber: user.phonenumber,
             address: user.address,
-            gender: user.gender ||'M',
-            position: user.positionId ||'P1',
-            role: user.roleId ||'R1',
+            gender: user.gender || 'M',
+            position: user.positionId || 'P1',
+            role: user.roleId || 'R1',
             previewImageUrl: imageBase64,
-            avatar:imageBase64,
+            avatar: imageBase64,
             action: CRUD_ACTIONS.EDIT,
         });
     };
@@ -198,7 +185,7 @@ class UserRedux extends Component {
         const { language } = this.props;
         const { arrGender, arrPosition, arrRoleID } = this.state;
         const { email, password, firstName, lastName, phoneNumber, address, gender, position, role } = this.state;
-        
+
         return (
             <div className={cx('users-redux-container')}>
                 <div className={cx('title', 'text-center')}>User Redux</div>
@@ -412,7 +399,6 @@ const mapDispatchToProps = (dispatch) => {
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
         eidtUser: (data) => dispatch(actions.eidtUser(data)),
         getAllUser: () => dispatch(actions.fechAllUser()),
-        // setLanguage: (language) => dispatch(changeLanguage(language)),
     };
 };
 

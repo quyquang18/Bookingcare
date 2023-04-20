@@ -49,7 +49,6 @@ class OffeManagement extends Component {
             });
         }
         if (this.props.listPromotion !== prevProps.listPromotion) {
-            // let data = this.buildDataInputSelect(this.props.listPromotion);
             this.setState({
                 listPromotion: this.props.listPromotion,
             });
@@ -63,6 +62,7 @@ class OffeManagement extends Component {
                 object.value = item.keyMap;
                 object.label = this.props.language === LANGUAGES.VI ? item.valueVI : item.valueEN;
                 result.push(object);
+                return true;
             });
         }
         return result;
@@ -107,6 +107,7 @@ class OffeManagement extends Component {
     handleSavePromotion = async () => {
         let { selectedType, name, description, image, modal, idPromotion } = this.state;
         console.log(this.state);
+        this.props.setStatusLoading(true);
         let res = await createNewPromotion({
             name,
             image,
@@ -116,10 +117,12 @@ class OffeManagement extends Component {
             idPromotion,
         });
         if (res && res.errCode === 0) {
+            this.props.setStatusLoading(false);
             toast.success('succeed');
             this.resetState();
             this.props.fetchListPromotion();
         } else {
+            this.props.setStatusLoading(false);
             toast.error('failed');
         }
     };
@@ -139,7 +142,6 @@ class OffeManagement extends Component {
     handlClickBtneDeletePromotion = (item) => {};
     renderTable = (numberElement) => {
         let { listPromotion, listKeyPromotion, currentPage } = this.state;
-        let { language } = this.props;
         const endOffset = currentPage + numberElement;
         const handlePageClick = (event) => {
             const newOffset = (event.selected * numberElement) % listPromotion.length;
@@ -148,7 +150,6 @@ class OffeManagement extends Component {
             });
         };
         let listPromotionSlice = listPromotion.slice(currentPage, endOffset);
-        console.log('render table');
         return (
             <div className={cx('users-table', 'mt-4')}>
                 <table className={cx('table-user')}>
@@ -283,6 +284,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllKeyPromotion: () => dispatch(actions.fetchAllKeyPromotion()),
         fetchListPromotion: () => dispatch(actions.fetchListPromotion()),
+        setStatusLoading: (status) => dispatch(actions.changeStatusReactLoading(status)),
     };
 };
 

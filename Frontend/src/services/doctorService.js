@@ -27,6 +27,12 @@ const getProfileDoctorById = (doctorId, date) => {
 const getProvinceVN = (depth) => {
     return axios.get(`https://provinces.open-api.vn/api/?depth=${depth}`);
 };
+const getListPatientForDoctor = (doctorId, date) => {
+    return axios.get(`/api/get-list-patient-for-doctor?doctorId=${doctorId}&date=${date}`);
+};
+const doctorConfirmSchedule = (data) => {
+    return axios.post(`/api/doctor-confirm-schedule`, data);
+};
 export {
     getTopDoctorHomeService,
     getAllDoctor,
@@ -37,4 +43,6 @@ export {
     getScheduleByDate,
     getProfileDoctorById,
     getProvinceVN,
+    getListPatientForDoctor,
+    doctorConfirmSchedule,
 };

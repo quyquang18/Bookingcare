@@ -12,6 +12,7 @@ import { INFOR_DOCTOR } from '~/utils';
 import { getAllSpecialty } from '~/services/specialtyService';
 import { getAllClinic, getTopClinic } from '~/services/ClinicService';
 import { getAllPromotion } from '~/services/promotionService';
+import { changeStatusReactLoading } from '~/store/actions';
 //Gender
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
@@ -83,7 +84,9 @@ export const fetchRoleFailed = () => ({
 export const createNewUser = (data) => {
     return async (dispatch, getState) => {
         try {
+            dispatch(changeStatusReactLoading(true));
             let resCreate = await createNewUserService(data);
+            dispatch(changeStatusReactLoading(false));
             if (resCreate && resCreate.errCode === 0) {
                 dispatch(createUserSuccess(resCreate));
             } else {
@@ -107,8 +110,9 @@ export const createUserFailed = (res) => ({
 export const deleteUser = (userId) => {
     return async (dispatch, getState) => {
         try {
+            dispatch(changeStatusReactLoading(true));
             let resDelete = await deleteUserService(userId);
-            // console.log(resDelete);
+            dispatch(changeStatusReactLoading(false));
             if (resDelete && resDelete.errCode === 0) {
                 dispatch(deleteUserSuccess(resDelete));
             } else {
@@ -134,32 +138,15 @@ export const deleteUserFailed = (res) => ({
 export const eidtUser = (userId) => {
     return async (dispatch, getState) => {
         try {
+            dispatch(changeStatusReactLoading(true));
             let resEdit = await editUserService(userId);
-            // console.log(resEdit);
+            dispatch(changeStatusReactLoading(false));
             if (resEdit && resEdit.errCode === 0) {
                 dispatch(editUserSuccess(resEdit));
-                toast.success('Edit user success!', {
-                    position: 'bottom-right',
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'colored',
-                });
+                toast.success('Edit user success!');
             } else {
                 dispatch(editUserFailed(resEdit));
-                toast.error('Edit user failed!', {
-                    position: 'bottom-right',
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: 'colored',
-                });
+                toast.error('Edit user failed!');
             }
         } catch (error) {
             dispatch(editUserFailed());
@@ -236,7 +223,9 @@ export const fetchAllDoctor = () => {
 export const saveDetailDoctor = (data) => {
     return async (dispatch, getState) => {
         try {
+            dispatch(changeStatusReactLoading(true));
             let res = await updateInforDoctor(data);
+            dispatch(changeStatusReactLoading(false));
             if (res && res.errCode === 0) {
                 toast.success('Save Detail Infor Doctor Succeed!');
                 dispatch({

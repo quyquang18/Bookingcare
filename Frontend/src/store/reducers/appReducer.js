@@ -14,6 +14,7 @@ const initialState = {
     contentOfConfirmModal: {
         ...initContentOfConfirmModal,
     },
+    isShowReactLoading: false,
 };
 
 const appReducer = (state = initialState, action) => {
@@ -35,6 +36,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 language: action.language,
+            };
+        case actionTypes.CHANGE_STATUS_REACT_LOADING:
+            return {
+                ...state,
+                isShowReactLoading: action.isShowReactLoading,
             };
         default:
             return state;

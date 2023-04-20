@@ -7,21 +7,20 @@ import moment from 'moment';
 import _ from 'lodash';
 import { toast } from 'react-toastify';
 
-import { LANGUAGES, CRUD_ACTIONS, dateFormat } from '~/utils';
+import { LANGUAGES } from '~/utils';
 import * as actions from '~/store/actions';
 import styles from './ManageSchedule.module.scss';
 import { DatePicker } from '~/components/Input';
 import { saveBulkScheduleDoctor } from '~/services/doctorService';
 const cx = classNames.bind(styles);
-let getCurentDate = new Date();
-getCurentDate.setHours(0, 0, 0, 0);
+
 class ManageSchedule extends Component {
     constructor(props) {
         super(props);
         this.state = {
             listDoctor: [],
             selectedDoctor: {},
-            selectedDate: getCurentDate,
+            selectedDate: moment(new Date()).startOf('day').valueOf(),
             rangeTime: [],
         };
     }
@@ -55,8 +54,11 @@ class ManageSchedule extends Component {
             });
         }
     }
+
     handleChangeDoctor = async (selectedDoctor) => {
-        this.setState({ selectedDoctor });
+        this.setState({
+            selectedDoctor,
+        });
     };
     buildDataInputSelect = (inputData) => {
         let result = [];
@@ -68,6 +70,7 @@ class ManageSchedule extends Component {
                 object.label = this.props.language === LANGUAGES.VI ? valueVI : valueEN;
                 object.value = item.id;
                 result.push(object);
+                return true;
             });
         }
         return result;
@@ -96,7 +99,6 @@ class ManageSchedule extends Component {
         let { rangeTime, selectedDoctor, selectedDate } = this.state;
         let result = [];
         let formatedDate = new Date(selectedDate).getTime();
-        console.log(formatedDate);
         if (!formatedDate) {
             toast.error('Invalid selected date');
         } else {
@@ -116,12 +118,19 @@ class ManageSchedule extends Component {
                             result.push(object);
                             return result;
                         });
-
-                        await saveBulkScheduleDoctor({
+                        this.props.setStatusLoading(true);
+                        let res = await saveBulkScheduleDoctor({
                             arrSchedule: result,
                             doctorId: selectedDoctor.value,
                             formatedDate,
                         });
+                        if (res && res.errCode === 0) {
+                            this.props.setStatusLoading(false);
+                            toast.success('succeed');
+                        } else {
+                            this.props.setStatusLoading(false);
+                            toast.success('fail');
+                        }
                     }
                 }
             }
@@ -154,7 +163,7 @@ class ManageSchedule extends Component {
                             <DatePicker
                                 className={cx('form-control')}
                                 onChange={this.handleChangeDatePicker}
-                                minDate={getCurentDate}
+                                minDate={moment(new Date()).startOf('day').valueOf()}
                                 defaulevalue={this.state.selectedDate}
                                 value={this.state.selectedDate}
                             />
@@ -196,6 +205,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllDoctor: () => dispatch(actions.fetchAllDoctor()),
         fetchAllScheduleTimes: () => dispatch(actions.fetchAllScheduleTimes()),
+        setStatusLoading: (status) => dispatch(actions.changeStatusReactLoading(status)),
     };
 };
 
